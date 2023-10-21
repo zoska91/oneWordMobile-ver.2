@@ -1,14 +1,15 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { ThemeProvider } from 'styled-components/native';
 import Toast from 'react-native-toast-message';
+
+import './src/translations/i18n';
 
 import useCachedResources from './src/hooks/useCachedResources';
 import useColorScheme from './src/hooks/useColorScheme';
 import Navigation from './src/navigation';
 import { theme } from './src/styles/theme';
+import { GlobalProvider } from './src/helpers/GlobalProvider';
 
 export default function App() {
   const { isLoadingComplete, fontsLoaded } = useCachedResources();
@@ -20,9 +21,11 @@ export default function App() {
     return (
       <SafeAreaProvider>
         <ThemeProvider theme={theme}>
+          <GlobalProvider>
             <Navigation colorScheme={colorScheme} />
             <StatusBar />
             <Toast />
+          </GlobalProvider>
         </ThemeProvider>
       </SafeAreaProvider>
     );
