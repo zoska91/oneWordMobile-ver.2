@@ -1,7 +1,6 @@
 import { FC, useRef } from 'react';
-import { Animated, Dimensions, Text } from 'react-native';
+import { Animated, Dimensions} from 'react-native';
 import styled from 'styled-components/native';
-// import SignUpForm from './SignUpForm/SignUpForm';
 
 import { Login, SignUp } from '../index'
 
@@ -15,7 +14,7 @@ interface AuthAuthProps {}
 const Auth: FC<AuthAuthProps> = () => {
   const windowHeight = Dimensions.get('window').height;
 
-  const toggleSlide = useRef(new Animated.Value(windowHeight * 0.58)).current;
+  const toggleSlide = useRef(new Animated.Value(0)).current;
 
   const toogleUp = () => {
     Animated.timing(toggleSlide, {
@@ -27,7 +26,7 @@ const Auth: FC<AuthAuthProps> = () => {
 
   const toggleDown = () => {
     Animated.timing(toggleSlide, {
-      toValue: windowHeight * 0.6,
+      toValue: windowHeight - 250,
       duration: 500,
       useNativeDriver: true,
     }).start();

@@ -55,7 +55,6 @@ const  HomeScreen: FC = () => {
             </Button>
           </S.WelcomeCard>
         </Card>
-        {/* <Button title='noti' onPress={triggerNotification} /> */}
       </Layout>
     </S.Wrapper>
   );

@@ -1,6 +1,9 @@
-export const API_BASE_URL = `https://one-word-server.vercel.app/api/`;
+export const API_BASE_URL = `https://one-word-server.vercel.app/api`;
 
-const headers = { 'Content-Type': 'application/json' };
+const headers = {
+  Accept: 'application.json',
+  'Content-Type': 'application/json',
+};
 
 export const apiUrls = {
   login: 'auth/login',
@@ -17,17 +20,24 @@ export class Api {
 
   async get<ResponseContent>(url: string, params?: {}) {
     const resp = await fetch(this.getUrl(url), params);
-    const json = resp.json();
+
+    const json = await resp.json();
     return json;
   }
 
   async post<ResponseContent>(url: string, body?: {}) {
+    console.log(url, body, this.getUrl(url));
+
     const resp = await fetch(this.getUrl(url), {
       method: 'POST',
       headers,
       body: JSON.stringify(body),
     });
-    const json = resp.json();
+    console.log(4, resp);
+
+    const json = await resp.json();
+    console.log(5, json);
+
     return json;
   }
 
@@ -37,7 +47,7 @@ export class Api {
       headers,
       body: JSON.stringify(body),
     });
-    const json = resp.json();
+    const json = await resp.json();
     return json;
   }
 
@@ -48,7 +58,7 @@ export class Api {
       body: JSON.stringify(body),
     });
 
-    const json = resp.json();
+    const json = await resp.json();
     return json;
   }
 }

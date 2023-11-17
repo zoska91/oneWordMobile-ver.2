@@ -14,7 +14,7 @@ const linking: LinkingOptions<RootStackParamList> = {
   config: {
     screens: {
       Home: 'Home',
-    //   User: 'User',
+      User: 'User',
       Modal: 'Modal',
       NotFound: '*',
     },

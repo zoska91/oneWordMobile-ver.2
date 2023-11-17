@@ -12,8 +12,8 @@ interface IModalScreenProps {
 }
 
 const ModalScreen: FC<IModalScreenProps> = ({ route }) => {
-    console.log(1, {route: route.params?.params});
-    
+  console.log(1, { route: route.params?.params });
+
   const type = route?.params?.params?.type;
   const action = route?.params?.params?.action;
   const navigation = useNavigation();
@@ -21,15 +21,14 @@ const ModalScreen: FC<IModalScreenProps> = ({ route }) => {
   useEffect(() => {
     return () => {
       // temporary - i dont know how to do this after login in LoginForm.hook.ts with closing modal
-    //   const user = getCurrentUser();
-    //   if (type === 'auth' && user.userId) navigation.navigate('User');
+      //   const user = getCurrentUser();
+      //   if (type === 'auth' && user.userId) navigation.navigate('User');
     };
   }, []);
 
   return (
     <View style={styles.container}>
-        <Text>modal</Text>
-        {type === 'auth' && <Auth />}
+      {type === 'auth' && <Auth />}
       {/*  {type === 'user' && <ModalUser action={action} />} */}
     </View>
   );

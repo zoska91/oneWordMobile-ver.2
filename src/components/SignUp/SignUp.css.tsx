@@ -8,9 +8,13 @@ export const Wrapper = StyleSheet.create({
     width: '100%',
     paddingTop: 10,
     paddingBottom: 30,
-    top: 180,
+    bottom: 0,
   },
 });
+
+export const FormWrapper = styled.View`
+  padding: 0 10%;
+`
 
 export const Title = styled.Text`
   color: ${({ theme }) => theme.colorLight};

@@ -4,6 +4,7 @@ import Svg, { RadialGradient, Defs, Stop, Rect } from 'react-native-svg';
 
 import Bubble from './Bubble';
 import { bubbles } from './bubblesData';
+import BackButton from '../components/atoms/BackButton';
 
 interface LayoutProps {}
 
@@ -54,6 +55,7 @@ const Layout = ({ children }: PropsWithChildren<LayoutProps>) => {
         ))}
       </View>
       {children}
+      <BackButton />
     </View>
   );
 };

@@ -2,6 +2,8 @@ import { FC } from 'react';
 import { SubmitHandler } from 'react-hook-form';
 import styled, { css } from 'styled-components/native';
 import { IAuth } from '../../types/forms';
+import { generateBoxShadowStyle } from '../../helpers/generateBoxShadowStyle';
+import { Platform } from 'react-native';
 
 interface ButtonProps {
   children: JSX.Element | string;
@@ -23,9 +25,10 @@ const Wrapper = styled.TouchableOpacity<styleWrapperProps>`
   background-color: ${({ theme, dark, secondaryColor }) =>
     dark ? theme.colorPrimary : secondaryColor ? theme.colorSecondary : '#f7f9fc'};
   border: none;
-  padding: ${({ small }) => (small ? '10px 30px' : '20px 50px')};
-  border-radius: 15px;
-  margin: 0 20px;
+  padding: ${({ small }) => (small ? '10px 30px' : '10px 50px')};
+  border-radius: 30px;
+  margin: 0 auto;
+  width: 80%;
 
   border: 2px solid transparent;
   min-width: ${({ small }) => (small ? '130px' : '200px')};
@@ -52,12 +55,7 @@ const Button: FC<ButtonProps> = ({ children, onPress, dark, disabled, small, sec
       disabled={disabled}
       small={small}
       secondaryColor={secondaryColor}
-      style={{
-        shadowColor: 'rgba(0, 0, 0, 0.38)',
-        shadowOffset: { width: 5, height: 5 },
-        shadowOpacity: 10,
-        shadowRadius: 7,
-      }}
+      style={{...generateBoxShadowStyle(-5, -5, '#000', 0.5, 3, 4, '#000', Platform.OS) }}
     >
       <Text
         secondaryColor={secondaryColor}

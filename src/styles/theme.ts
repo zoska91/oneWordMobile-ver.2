@@ -6,6 +6,7 @@ declare module 'styled-components' {
     colorSecondary: string;
     colorLight: string;
     correctAnsw: string;
+    colorDanger: string;
 
     status: string[];
   }
@@ -15,6 +16,8 @@ export const theme: DefaultTheme = {
   colorPrimary: '#2e2757',
   colorSecondary: '#8c3a68',
   colorLight: '#e5e6ef',
+
+  colorDanger: 'rgb(178, 35, 52)',
 
   correctAnsw: '#009300',
 

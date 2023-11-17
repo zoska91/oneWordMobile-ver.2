@@ -16,6 +16,7 @@ i18n
   .use(detector)
   .use(initReactI18next) // passes i18n down to react-i18next
   .init({
+    compatibilityJSON: 'v3',
     resources,
     fallbackLng: 'en',
     debug: true,

@@ -9,7 +9,6 @@ import useCachedResources from './src/hooks/useCachedResources';
 import useColorScheme from './src/hooks/useColorScheme';
 import Navigation from './src/navigation';
 import { theme } from './src/styles/theme';
-import { GlobalProvider } from './src/helpers/GlobalProvider';
 
 export default function App() {
   const { isLoadingComplete, fontsLoaded } = useCachedResources();
@@ -21,11 +20,9 @@ export default function App() {
     return (
       <SafeAreaProvider>
         <ThemeProvider theme={theme}>
-          <GlobalProvider>
-            <Navigation colorScheme={colorScheme} />
-            <StatusBar />
-            <Toast />
-          </GlobalProvider>
+          <Navigation colorScheme={colorScheme} />
+          <StatusBar />
+          <Toast />
         </ThemeProvider>
       </SafeAreaProvider>
     );

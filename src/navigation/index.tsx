@@ -8,9 +8,10 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as React from 'react';
 import { ColorSchemeName } from 'react-native';
 
-import { HomeScreen, ModalScreen, NotFoundScreen } from '../screens';
+import { HomeScreen, ModalScreen, NotFoundScreen, UserScreen } from '../screens';
 import LinkingConfiguration from './LinkingConfiguration';
 import { RootStackParamList } from '../types/navigation';
+import { GlobalProvider } from '../helpers/GlobalProvider';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -18,7 +19,9 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
       linking={LinkingConfiguration}
       theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
     >
-      <RootNavigator />
+      <GlobalProvider>
+        <RootNavigator />
+      </GlobalProvider>
     </NavigationContainer>
   );
 }
@@ -33,7 +36,7 @@ function RootNavigator() {
   return (
     <Stack.Navigator>
       <Stack.Screen name='Home' component={HomeScreen} options={{ headerShown: false }} />
-      {/* <Stack.Screen name='User' component={UserScreen} options={{ headerShown: false }} /> */}
+      <Stack.Screen name='User' component={UserScreen} options={{ headerShown: false }} />
       <Stack.Screen name='NotFound' component={NotFoundScreen} options={{ title: 'Oops!' }} />
       <Stack.Group screenOptions={{ presentation: 'modal', headerShown: false }}>
         <Stack.Screen name='Modal' component={ModalScreen} />

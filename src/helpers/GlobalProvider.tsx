@@ -8,6 +8,8 @@ import {
   Dispatch,
   SetStateAction,
 } from 'react';
+import { useNavigation } from '@react-navigation/native';
+
 import { Api, apiUrls } from '../api';
 
 interface EventViewContextValue {
@@ -24,18 +26,27 @@ const EventViewContext = createContext<EventViewContextValue>({} as EventViewCon
 
 export const GlobalProvider: FC<IProps> = ({ children }) => {
   const api = new Api();
+  const navigation = useNavigation();
+
   const [isLogin, setIsLogin] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const getUser = async () => {
     try {
-      setIsLogin(true);
-      const resp = api.get(apiUrls.user);
-      console.log(resp);
+      setIsLoading(true);
+      const resp = await api.get(apiUrls.user);
+      if (resp.message === 'no logged user') {
+        setIsLogin(false);
+        return navigation.navigate('Home');
+      } else {
+        setIsLogin(true);
+
+        navigation.navigate('User');
+      }
     } catch (e) {
-      console.log(e);
+      console.log(2, e);
     } finally {
-      setIsLogin(false);
+      setIsLoading(false);
     }
   };
 

@@ -3,9 +3,11 @@ import { FormProvider } from 'react-hook-form';
 import { Dimensions, Animated } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
-import { Button, TitleText, InputText } from '../index';
+import { TitleText } from '../atoms/Title';
+import Button from '../atoms/Button';
+import InputText from '../atoms/InputText';
 
-import * as S from './SignUp.css'
+import * as S from './SignUp.css';
 import useSignUpForm from './useSignUp';
 
 interface SignFormProps {
@@ -24,7 +26,7 @@ const SignUp: FC<SignFormProps> = ({ toogleUp, toggleSlide }) => {
         S.Wrapper.wrapper,
         {
           transform: [{ translateY: toggleSlide }],
-          height: windowHeight - 100,
+          height: windowHeight - 150,
         },
       ]}
     >
@@ -33,23 +35,25 @@ const SignUp: FC<SignFormProps> = ({ toogleUp, toggleSlide }) => {
       />
 
       <FormProvider {...methods}>
-        <KeyboardAwareScrollView>
-          <S.TouchableOpacity onPress={toogleUp}>
-            <TitleText light>Sign In</TitleText>
-          </S.TouchableOpacity>
+        <S.FormWrapper>
+          <KeyboardAwareScrollView>
+            <S.TouchableOpacity onPress={toogleUp}>
+              <TitleText light>Sign In</TitleText>
+            </S.TouchableOpacity>
 
-          <S.InputsContainer>
-            <InputText name='email' required light />
-            <InputText name='password' required light secureTextEntry />
-          </S.InputsContainer>
+            <S.InputsContainer>
+              <InputText name='email' required light />
+              <InputText name='password' required light secureTextEntry />
+            </S.InputsContainer>
 
-          <Button secondaryColor onPress={handleSubmit(onSubmit, onError)}>
-            Sign in
-          </Button>
-        </KeyboardAwareScrollView>
+            <Button secondaryColor onPress={handleSubmit(onSubmit, onError)}>
+              Sign in
+            </Button>
+          </KeyboardAwareScrollView>
+        </S.FormWrapper>
       </FormProvider>
     </Animated.View>
   );
 };
 
-export default SignUp
+export default SignUp;

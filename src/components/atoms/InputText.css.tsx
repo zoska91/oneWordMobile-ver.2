@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import {TextInput} from 'react-native';
 
 interface LabelType {
   big?: boolean;
@@ -10,7 +11,7 @@ interface WrapperType {
 
 export const FieldContainer = styled.View<WrapperType>`
   width: 80%;
-  margin: ${({ small }) => (small ? '10px auto 0px' : '10px auto')};
+  margin: ${({ small }) => (small ? '0px auto' : '0px auto')};
   padding: 0;
 `;
 
@@ -72,3 +73,14 @@ export const SelectValue = styled.View`
   border-color: #e4e9f2;
   min-height: 40px;
 `;
+
+export const StyledInput = styled.TextInput<{status?: string}>`
+  text-align: center;
+  width: 100%;
+  height: 35px;
+  margin: 10px auto 20px auto;
+  padding: 5px;
+  background-color: ${({ theme }) => theme.colorLight};
+  border-radius: 30px;
+  border-color: ${({ theme, status }) => status === 'danger' ? theme.colorDanger : 'transparent'};
+`
