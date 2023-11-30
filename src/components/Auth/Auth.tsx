@@ -1,48 +1,84 @@
-import { FC, useRef } from 'react';
-import { Animated, Dimensions} from 'react-native';
+import { FC, useState, useRef } from 'react';
+import { Animated } from 'react-native';
 import styled from 'styled-components/native';
 
-import { Login, SignUp } from '../index'
+import { Login, SignUp } from '../index';
+import GlassContainer from '../GlassContainer/GlassContainer';
 
 const Wrapper = styled.View`
+  position: absolute;
+  top: 25%;
+  left: 0;
   padding-top: 20px;
-  position: relative;
+  width: 100%;
+  height: 100%;
 `;
 
 interface AuthAuthProps {}
 
 const Auth: FC<AuthAuthProps> = () => {
-  const windowHeight = Dimensions.get('window').height;
+  const [isSinUpOpen, setIsSignUpOpen] = useState(false);
 
-  const toggleSlide = useRef(new Animated.Value(0)).current;
+  const currentScaleSignUp = useRef(new Animated.Value(0)).current;
+  const currentScaleLogin = useRef(new Animated.Value(1)).current;
+  const currentOpacityLogin = useRef(new Animated.Value(1)).current;
 
-  const toogleUp = () => {
-    Animated.timing(toggleSlide, {
+  const toggleAuth = () => {
+    if (isSinUpOpen) toggleHideSignUp();
+    else toggleShowSignUp();
+    setIsSignUpOpen((prev) => !prev);
+  };
+
+  const toggleShowSignUp = () => {
+    Animated.timing(currentScaleSignUp, {
+      toValue: 1,
+      duration: 300,
+      useNativeDriver: true,
+    }).start();
+
+    Animated.timing(currentScaleLogin, {
+      toValue: 20,
+      duration: 300,
+      useNativeDriver: true,
+    }).start();
+
+    Animated.timing(currentOpacityLogin, {
       toValue: 0,
-      duration: 500,
+      duration: 300,
       useNativeDriver: true,
     }).start();
   };
 
-  const toggleDown = () => {
-    Animated.timing(toggleSlide, {
-      toValue: windowHeight - 250,
-      duration: 500,
+  const toggleHideSignUp = () => {
+    Animated.timing(currentScaleSignUp, {
+      toValue: 0,
+      duration: 300,
+      useNativeDriver: true,
+    }).start();
+
+    Animated.timing(currentScaleLogin, {
+      toValue: 1,
+      duration: 300,
+      useNativeDriver: true,
+    }).start();
+
+    Animated.timing(currentOpacityLogin, {
+      toValue: 1,
+      duration: 300,
       useNativeDriver: true,
     }).start();
   };
 
   return (
-    <Wrapper
-      style={{
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: '100%',
-      }}
-    >
-      <Login toggleDown={toggleDown} />
-      <SignUp toogleUp={toogleUp} toggleSlide={toggleSlide} />
+    <Wrapper>
+      <GlassContainer type={isSinUpOpen ? 'dark' : 'light'}>
+        <Login
+          toggleAuth={toggleAuth}
+          currentScale={currentScaleLogin}
+          currentOpacityLogin={currentOpacityLogin}
+        />
+        <SignUp toggleAuth={toggleAuth} currentScale={currentScaleSignUp} />
+      </GlassContainer>
     </Wrapper>
   );
 };

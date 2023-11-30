@@ -23,6 +23,7 @@ export const Wrapper = styled.View<styledProps>`
   left: 0;
   right: 0;
   z-index: 3;
+  height: 20%;
 `;
 
 export const Text = styled.Text<styledProps>`

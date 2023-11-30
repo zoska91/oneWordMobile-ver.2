@@ -7,7 +7,7 @@ interface styleProps {
 
 export const Bg = styled.ScrollView<styleProps>`
   position: absolute;
-  top: 23%;
+  top: 28%;
   left: ${({ windowWidth }) => (windowWidth - windowWidth * 0.8) / 2}px;
   border-radius: 30px;
   overflow: hidden;

@@ -1,23 +1,25 @@
 import styled from 'styled-components/native';
+import { StyleSheet } from 'react-native';
 
-export const Wrapper = styled.View`
-  flex: 1;
-  align-items: center;
-  width: 100%;
-  padding-bottom: 150px;
-  padding-top: 70px;
-`;
+export const Wrapper = StyleSheet.create({
+  wrapper: {
+    left: 0,
+    width: '100%',
+  },
+});
 
 export const InputsContainer = styled.View`
   margin-bottom: 50px;
   width: 100%;
 `;
 
-export const TouchableOpacity = styled.TouchableOpacity`
-  margin-bottom: 50px;
-`;
-
 export const FormWrapper = styled.View`
   padding: 0 10%;
   width: 100%;
-`
+`;
+
+export const RegisterButton = styled.TouchableOpacity`
+  margin-top: 20;
+  text-align: center;
+  width: 100%;
+`;
