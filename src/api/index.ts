@@ -37,17 +37,13 @@ export class Api {
   }
 
   async post<ResponseContent>(url: string, body?: {}) {
-    console.log(url, body, this.getUrl(url));
-
     const resp = await fetch(this.getUrl(url), {
       method: 'POST',
       headers: this.getHeaders(),
       body: JSON.stringify(body),
     });
-    console.log(4, resp);
 
     const json = await resp.json();
-    console.log(5, json);
 
     return json;
   }

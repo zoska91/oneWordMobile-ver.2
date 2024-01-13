@@ -1,18 +1,19 @@
+import { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useForm, SubmitHandler, SubmitErrorHandler } from 'react-hook-form';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-toast-message';
+import { useNavigation } from '@react-navigation/native';
 
 import { IAuth } from '../../types/forms';
-import { useNavigation } from '@react-navigation/native';
 import { Api, apiUrls } from '../../api';
-import { useGlobalProvider } from '../../helpers/GlobalProvider';
+import { useGlobalProvider } from '../../layout/GlobalProvider';
 
 const useLogin = () => {
   const { t } = useTranslation();
   const navigation = useNavigation();
   const api = new Api();
-  const { setIsLoading } = useGlobalProvider();
+  const { setIsLoading, setIsLogin } = useGlobalProvider();
 
   const methods = useForm<IAuth>();
   const { handleSubmit } = methods;
@@ -30,6 +31,7 @@ const useLogin = () => {
         await AsyncStorage.setItem('token', resp.token);
         Toast.show({ type: 'success', text2: 'success' });
         navigation.navigate('User');
+        setIsLogin(true);
         return;
       } else {
         Toast.show({ type: 'error', text2: resp.message });

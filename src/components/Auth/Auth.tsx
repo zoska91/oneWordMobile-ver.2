@@ -77,7 +77,7 @@ const Auth: FC<AuthAuthProps> = () => {
           currentScale={currentScaleLogin}
           currentOpacityLogin={currentOpacityLogin}
         />
-        {/* <SignUp toggleAuth={toggleAuth} currentScale={currentScaleSignUp} /> */}
+        <SignUp toggleAuth={toggleAuth} currentScale={currentScaleSignUp} />
       </GlassContainer>
     </Wrapper>
   );

@@ -9,13 +9,15 @@ import {
   SetStateAction,
 } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { Api, apiUrls } from '../api';
 
 interface EventViewContextValue {
   isLoading: boolean;
-  isLogin: boolean;
   setIsLoading: Dispatch<SetStateAction<boolean>>;
+  isLogin: boolean;
+  setIsLogin: Dispatch<SetStateAction<boolean>>;
 }
 
 interface IProps {
@@ -25,13 +27,14 @@ interface IProps {
 const EventViewContext = createContext<EventViewContextValue>({} as EventViewContextValue);
 
 export const GlobalProvider: FC<IProps> = ({ children }) => {
-  const api = new Api();
   const navigation = useNavigation();
 
   const [isLogin, setIsLogin] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const getUser = async () => {
+    const token = await AsyncStorage.getItem('token');
+    const api = new Api(token);
     try {
       setIsLoading(true);
       const resp = await api.get(apiUrls.user);
@@ -54,7 +57,7 @@ export const GlobalProvider: FC<IProps> = ({ children }) => {
     getUser();
   }, []);
 
-  const value = { isLoading, isLogin, setIsLoading };
+  const value = { isLoading, isLogin, setIsLoading, setIsLogin };
 
   return <EventViewContext.Provider value={value}>{children}</EventViewContext.Provider>;
 };

@@ -11,7 +11,7 @@ import { ColorSchemeName } from 'react-native';
 import { HomeScreen, ModalScreen, NotFoundScreen, UserScreen } from '../screens';
 import LinkingConfiguration from './LinkingConfiguration';
 import { RootStackParamList } from '../types/navigation';
-import { GlobalProvider } from '../helpers/GlobalProvider';
+import { GlobalProvider } from '../layout/GlobalProvider';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (

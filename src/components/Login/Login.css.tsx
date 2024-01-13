@@ -19,7 +19,7 @@ export const FormWrapper = styled.View`
 `;
 
 export const RegisterButton = styled.TouchableOpacity`
-  margin-top: 20;
+  margin-top: 20px;
   text-align: center;
   width: 100%;
 `;

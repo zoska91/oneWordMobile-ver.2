@@ -1,14 +1,17 @@
-import { PropsWithChildren } from 'react';
+import { PropsWithChildren, createContext } from 'react';
 import { Dimensions, View } from 'react-native';
 import Svg, { RadialGradient, Defs, Stop, Rect } from 'react-native-svg';
 
 import Bubble from './Bubble';
 import { bubbles } from './bubblesData';
 import BackButton from '../components/atoms/BackButton';
+import GlobalLoader from '../components/atoms/GlobalLoader';
+import { useGlobalProvider } from './GlobalProvider';
 
 interface LayoutProps {}
 
 const Layout = ({ children }: PropsWithChildren<LayoutProps>) => {
+  const { isLoading } = useGlobalProvider();
   const windowWidth = Dimensions.get('window').width;
   const windowHeight = Dimensions.get('window').height;
 
@@ -56,6 +59,7 @@ const Layout = ({ children }: PropsWithChildren<LayoutProps>) => {
       </View>
       {children}
       <BackButton />
+      {isLoading && <GlobalLoader />}
     </View>
   );
 };
