@@ -1,6 +1,7 @@
 import { useForm, SubmitHandler, SubmitErrorHandler } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { IAuth } from '../../types/forms';
 import { Api, apiUrls } from '../../api';
@@ -22,16 +23,20 @@ const useSignUpForm = () => {
   };
 
   const onSubmit: SubmitHandler<IAuth> = async ({ email, password }) => {
+    console.log('submnit rtegister');
     try {
       setIsLoading(true);
-      const resp = await api.post(apiUrls.signup, { username: email, password });
-      if (resp.message === 'success') {
-        await api.post(apiUrls.login, { username: email, password });
+      const respSignUp = await api.post(apiUrls.signup, { username: email, password });
+      if (respSignUp.message === 'success') {
+        const respLogin = await api.post(apiUrls.login, { username: email, password });
 
-        Toast.show({ type: 'success', text2: 'success' });
-        navigation.navigate('User');
-        return;
-      } else Toast.show({ type: 'error', text2: resp.message });
+        await AsyncStorage.setItem('token', respLogin.token);
+
+        if (respLogin.message === 'success') {
+          Toast.show({ type: 'success', text2: 'success' });
+          navigation.navigate('User');
+        } else Toast.show({ type: 'error', text2: respLogin.message });
+      } else Toast.show({ type: 'error', text2: respSignUp.message });
     } catch (e) {
       console.log(2, e);
     } finally {

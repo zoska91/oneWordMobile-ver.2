@@ -6,20 +6,31 @@ const headers = {
 };
 
 export const apiUrls = {
+  // auth
   login: 'auth/login',
   signup: 'auth/register',
   user: 'auth/user',
+
+  // settings
 };
 
 export class Api {
-  constructor() {}
+  private token?: string | null;
+
+  constructor(token?: string | null) {
+    this.token = token;
+  }
 
   getUrl(url: string) {
     return `${API_BASE_URL}/${url}`;
   }
 
   async get<ResponseContent>(url: string, params?: {}) {
-    const resp = await fetch(this.getUrl(url), params);
+    const searchParams = new URLSearchParams(params);
+    const resp = await fetch(this.getUrl(`${url}${searchParams}`), {
+      method: 'GET',
+      headers: this.getHeaders(),
+    });
 
     const json = await resp.json();
     return json;
@@ -30,7 +41,7 @@ export class Api {
 
     const resp = await fetch(this.getUrl(url), {
       method: 'POST',
-      headers,
+      headers: this.getHeaders(),
       body: JSON.stringify(body),
     });
     console.log(4, resp);
@@ -44,7 +55,7 @@ export class Api {
   async put<ResponseContent>(url: string, body?: {}) {
     const resp = await fetch(this.getUrl(url), {
       method: 'POST',
-      headers,
+      headers: this.getHeaders(),
       body: JSON.stringify(body),
     });
     const json = await resp.json();
@@ -54,11 +65,18 @@ export class Api {
   async delete<ResponseContent>(url: string, body?: {}) {
     const resp = await fetch(this.getUrl(url), {
       method: 'POST',
-      headers,
+      headers: this.getHeaders(),
       body: JSON.stringify(body),
     });
 
     const json = await resp.json();
     return json;
+  }
+
+  getHeaders() {
+    return {
+      ...headers,
+      Authorization: `Bearer ${this.token}`,
+    };
   }
 }

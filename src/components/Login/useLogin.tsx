@@ -1,12 +1,12 @@
 import { useTranslation } from 'react-i18next';
 import { useForm, SubmitHandler, SubmitErrorHandler } from 'react-hook-form';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import Toast from 'react-native-toast-message';
 
-// import { addDefaultSettingsIfNotExistsAPI } from '../../../db/API/settings';
 import { IAuth } from '../../types/forms';
 import { useNavigation } from '@react-navigation/native';
 import { Api, apiUrls } from '../../api';
 import { useGlobalProvider } from '../../helpers/GlobalProvider';
-import Toast from 'react-native-toast-message';
 
 const useLogin = () => {
   const { t } = useTranslation();
@@ -24,8 +24,10 @@ const useLogin = () => {
   const onSubmit: SubmitHandler<IAuth> = async ({ email, password }) => {
     try {
       setIsLoading(true);
+
       const resp = await api.post(apiUrls.login, { username: email, password });
-      if (resp.message === 'success') {
+      if (resp.message === 'Login Successful') {
+        await AsyncStorage.setItem('token', resp.token);
         Toast.show({ type: 'success', text2: 'success' });
         navigation.navigate('User');
         return;

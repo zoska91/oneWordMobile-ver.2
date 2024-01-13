@@ -42,11 +42,10 @@ const LoginForm: FC<LoginFormProps> = ({ toggleAuth, currentScale, currentOpacit
               <InputText name='password' required secureTextEntry />
             </S.InputsContainer>
 
-            <Button secondaryColor onPress={() => handleSubmit(onSubmit, onError)}>
+            <Button secondaryColor onPress={handleSubmit(onSubmit, onError)}>
               Log in
             </Button>
             <S.RegisterButton onPress={toggleAuth}>
-              {/* <S.RegisterButton onPress={toggleAuth}> */}
               <TextWrapper center medium>
                 Register
               </TextWrapper>

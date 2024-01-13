@@ -7,21 +7,32 @@ import { TitleWrapper, TitleText, TextWrapper, Button, Card, Auth } from '../../
 import Layout from '../../layout';
 
 import * as S from './HomeScreen.css';
+import { Api, apiUrls } from '../../api';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import Toast from 'react-native-toast-message';
 
 const HomeScreen: FC = () => {
   const { t } = useTranslation();
   const isFocused = useIsFocused();
   const navigation = useNavigation();
 
+  const getUser = async () => {
+    try {
+      const token = await AsyncStorage.getItem('token');
+      const api = new Api(token);
+      const resp = await api.get(apiUrls.user);
+      console.log('----------------');
+      console.log(resp);
+      if (resp.message === 'message') {
+        navigation.navigate('User');
+      } else {
+        Toast.show({ type: 'error', text2: resp.message });
+      }
+    } catch (e) {}
+  };
+
   useEffect(() => {
-    // const auth = getAuth();
-    // onAuthStateChanged(auth, user => {
-    //   if (user?.uid) navigation.navigate('User');
-    // });
-    // if (isFocused) {
-    //   const user = getCurrentUser();
-    //   if (user?.userId) navigation.navigate('User');
-    // }
+    getUser();
   }, [isFocused]);
 
   return (
