@@ -1,35 +1,31 @@
-import { FC, useEffect, useLayoutEffect } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { FC } from 'react';
+import { StyleSheet, View } from 'react-native';
 import { RouteProp, useNavigation } from '@react-navigation/native';
 
-// import ModalUser from '../../components/ModalUser/ModalUser';
-// import { getCurrentUser } from '../../db/API/auth';
 import { RootStackParamList } from '../../types/navigation';
-import { Auth } from '../../components';
+import Modal from '../../components/Modal/Modal';
+import Toast from 'react-native-toast-message';
+import { useGlobalProvider } from '../../layout/GlobalProvider';
+import GlobalLoader from '../../components/atoms/GlobalLoader';
 
 interface IModalScreenProps {
   route: RouteProp<RootStackParamList, 'Modal'>;
 }
 
 const ModalScreen: FC<IModalScreenProps> = ({ route }) => {
+  const { isLoading } = useGlobalProvider();
+
   console.log(1, { route: route.params?.params });
 
   const type = route?.params?.params?.type;
   const action = route?.params?.params?.action;
   const navigation = useNavigation();
 
-  useEffect(() => {
-    return () => {
-      // temporary - i dont know how to do this after login in LoginForm.hook.ts with closing modal
-      //   const user = getCurrentUser();
-      //   if (type === 'auth' && user.userId) navigation.navigate('User');
-    };
-  }, []);
-
   return (
     <View style={styles.container}>
-      {type === 'auth' && <Auth />}
-      {/*  {type === 'user' && <ModalUser action={action} />} */}
+      <Modal action={action} />
+      {isLoading && <GlobalLoader />}
+      <Toast />
     </View>
   );
 };

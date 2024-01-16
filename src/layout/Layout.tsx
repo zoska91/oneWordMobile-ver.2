@@ -7,6 +7,7 @@ import { bubbles } from './bubblesData';
 import BackButton from '../components/atoms/BackButton';
 import GlobalLoader from '../components/atoms/GlobalLoader';
 import { useGlobalProvider } from './GlobalProvider';
+import Toast from 'react-native-toast-message';
 
 interface LayoutProps {}
 
@@ -60,6 +61,7 @@ const Layout = ({ children }: PropsWithChildren<LayoutProps>) => {
       {children}
       <BackButton />
       {isLoading && <GlobalLoader />}
+      <Toast />
     </View>
   );
 };

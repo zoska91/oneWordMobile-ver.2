@@ -10,7 +10,7 @@ const Wrapper = styled.View`
   left: 0;
   right: 0;
   background-color: rgba(46, 39, 87, 0.8);
-  z-index: 999999;
+  z-index: 9999999999999;
 
   display: flex;
   align-items: center;

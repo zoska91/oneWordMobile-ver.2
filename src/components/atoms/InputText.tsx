@@ -2,9 +2,9 @@ import { FC } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
-import * as S from './InputText.css';
+import * as S from './Inputs.css';
 import { generateBoxShadowStyle } from '../../helpers/generateBoxShadowStyle';
-import { Platform, StyleSheet } from 'react-native';
+import { Platform } from 'react-native';
 
 interface InputFieldProps {
   name: string;
@@ -15,6 +15,7 @@ interface InputFieldProps {
   defaultValue?: string;
   light?: boolean;
   secureTextEntry?: boolean;
+  placeholder?: string;
 }
 
 const InputField: FC<InputFieldProps> = ({
@@ -26,10 +27,9 @@ const InputField: FC<InputFieldProps> = ({
   defaultValue,
   light,
   secureTextEntry,
-  ...props
+  placeholder,
 }) => {
   const {
-    getValues,
     control,
     formState: { errors },
   } = useFormContext();
@@ -51,11 +51,11 @@ const InputField: FC<InputFieldProps> = ({
           <S.StyledInput
             secureTextEntry={secureTextEntry}
             status={errors[name] ? 'danger' : ''}
-            placeholder={t(`form.${name}Placeholder`)}
+            placeholder={placeholder || t(`form.${name}Placeholder`)}
             value={value}
             onBlur={onBlur}
             onChangeText={(value: string) => onChange(value)}
-            style={{...generateBoxShadowStyle(-5, -5, '#000', 0.5, 3, 4, '#000', Platform.OS) }}
+            style={{ ...generateBoxShadowStyle(-5, -5, '#000', 0.5, 3, 4, '#000', Platform.OS) }}
           />
         )}
         rules={{

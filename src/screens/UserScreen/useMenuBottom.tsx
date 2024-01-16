@@ -11,7 +11,6 @@ const useMenuBottom = () => {
     navigation.navigate('Modal', {
       screen: 'Modal',
       params: {
-        type: 'user',
         action,
       },
     });

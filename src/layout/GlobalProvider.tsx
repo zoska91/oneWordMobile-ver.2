@@ -27,14 +27,13 @@ interface IProps {
 const EventViewContext = createContext<EventViewContextValue>({} as EventViewContextValue);
 
 export const GlobalProvider: FC<IProps> = ({ children }) => {
+  const api = new Api();
   const navigation = useNavigation();
 
   const [isLogin, setIsLogin] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const getUser = async () => {
-    const token = await AsyncStorage.getItem('token');
-    const api = new Api(token);
     try {
       setIsLoading(true);
       const resp = await api.get(apiUrls.user);

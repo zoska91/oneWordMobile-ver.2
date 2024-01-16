@@ -55,7 +55,7 @@ const Button: FC<ButtonProps> = ({ children, onPress, dark, disabled, small, sec
       disabled={disabled}
       small={small}
       secondaryColor={secondaryColor}
-      style={{...generateBoxShadowStyle(-5, -5, '#000', 0.5, 3, 4, '#000', Platform.OS) }}
+      style={{ ...generateBoxShadowStyle(-5, -5, '#000', 0.5, 3, 4, '#000', Platform.OS) }}
     >
       <Text
         secondaryColor={secondaryColor}

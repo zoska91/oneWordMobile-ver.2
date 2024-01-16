@@ -22,7 +22,6 @@ export default function App() {
         <ThemeProvider theme={theme}>
           <Navigation colorScheme={colorScheme} />
           <StatusBar />
-          <Toast />
         </ThemeProvider>
       </SafeAreaProvider>
     );

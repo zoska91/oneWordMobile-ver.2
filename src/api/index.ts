@@ -1,3 +1,5 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 export const API_BASE_URL = `https://one-word-server.vercel.app/api`;
 
 const headers = {
@@ -12,34 +14,45 @@ export const apiUrls = {
   user: 'auth/user',
 
   // settings
+  getUserSettings: 'settings/user-settings', // GET
+  updateUserSettings: 'settings/user-settings', //PUT
+  
+  // words
+  getAllWords: 'words/all', //GET
+  addWord: 'words/add-one', //POST
+  updateWord: (id: string) => `words/update-one/${id}`, //PUT
+
+  getTodayWord: 'words/today-word', //GET
 };
 
 export class Api {
-  private token?: string | null;
-
-  constructor(token?: string | null) {
-    this.token = token;
-  }
+  constructor() {}
 
   getUrl(url: string) {
     return `${API_BASE_URL}/${url}`;
   }
 
   async get<ResponseContent>(url: string, params?: {}) {
+    const headers = await this.getHeaders();
+    console.log(headers)
+
     const searchParams = new URLSearchParams(params);
     const resp = await fetch(this.getUrl(`${url}${searchParams}`), {
       method: 'GET',
-      headers: this.getHeaders(),
+      headers,
     });
 
     const json = await resp.json();
     return json;
   }
 
-  async post<ResponseContent>(url: string, body?: {}) {
+  async post<ResponseContent>(url: string, body: {} = {}) {
+    const headers = await this.getHeaders();
+    console.log(headers)
+
     const resp = await fetch(this.getUrl(url), {
       method: 'POST',
-      headers: this.getHeaders(),
+      headers,
       body: JSON.stringify(body),
     });
 
@@ -48,20 +61,25 @@ export class Api {
     return json;
   }
 
-  async put<ResponseContent>(url: string, body?: {}) {
+  async put<ResponseContent>(url: string, body: {} = {}) {
+    const headers = await this.getHeaders();
+
+    console.log({url, body});
     const resp = await fetch(this.getUrl(url), {
-      method: 'POST',
-      headers: this.getHeaders(),
+      method: 'PUT',
+      headers,
       body: JSON.stringify(body),
     });
     const json = await resp.json();
     return json;
   }
 
-  async delete<ResponseContent>(url: string, body?: {}) {
+  async delete<ResponseContent>(url: string, body: {} = {}) {
+    const headers = await this.getHeaders();
+
     const resp = await fetch(this.getUrl(url), {
       method: 'POST',
-      headers: this.getHeaders(),
+      headers,
       body: JSON.stringify(body),
     });
 
@@ -69,10 +87,12 @@ export class Api {
     return json;
   }
 
-  getHeaders() {
+  async getHeaders() {
+    const token = await AsyncStorage.getItem('token');
+
     return {
       ...headers,
-      Authorization: `Bearer ${this.token}`,
+      Authorization: `Bearer ${token}`,
     };
   }
 }

@@ -16,6 +16,7 @@ export const theme: DefaultTheme = {
   colorPrimary: '#2e2757',
   colorSecondary: '#8c3a68',
   colorLight: '#e5e6ef',
+  colorLighter: '#f5f5f9',
 
   colorDanger: 'rgb(178, 35, 52)',
 
