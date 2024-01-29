@@ -21,6 +21,7 @@ export const apiUrls = {
   getAllWords: 'words/all', //GET
   addWord: 'words/add-one', //POST
   updateWord: (id: string) => `words/update-one/${id}`, //PUT
+  deleteWord: (id: string) => `words/delete-one/${id}`, // DELETE
 
   getTodayWord: 'words/today-word', //GET
 };
@@ -34,7 +35,7 @@ export class Api {
 
   async get<ResponseContent>(url: string, params?: {}) {
     const headers = await this.getHeaders();
-    console.log(headers)
+    console.log({headers})
 
     const searchParams = new URLSearchParams(params);
     const resp = await fetch(this.getUrl(`${url}${searchParams}`), {
@@ -48,7 +49,6 @@ export class Api {
 
   async post<ResponseContent>(url: string, body: {} = {}) {
     const headers = await this.getHeaders();
-    console.log(headers)
 
     const resp = await fetch(this.getUrl(url), {
       method: 'POST',
@@ -64,7 +64,6 @@ export class Api {
   async put<ResponseContent>(url: string, body: {} = {}) {
     const headers = await this.getHeaders();
 
-    console.log({url, body});
     const resp = await fetch(this.getUrl(url), {
       method: 'PUT',
       headers,
@@ -74,13 +73,12 @@ export class Api {
     return json;
   }
 
-  async delete<ResponseContent>(url: string, body: {} = {}) {
+  async delete<ResponseContent>(url: string) {
     const headers = await this.getHeaders();
 
     const resp = await fetch(this.getUrl(url), {
-      method: 'POST',
+      method: 'DELETE',
       headers,
-      body: JSON.stringify(body),
     });
 
     const json = await resp.json();
@@ -89,6 +87,8 @@ export class Api {
 
   async getHeaders() {
     const token = await AsyncStorage.getItem('token');
+
+    if (!token) return headers;
 
     return {
       ...headers,

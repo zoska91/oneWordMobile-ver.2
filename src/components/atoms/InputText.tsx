@@ -16,18 +16,18 @@ interface InputFieldProps {
   light?: boolean;
   secureTextEntry?: boolean;
   placeholder?: string;
+  small?: boolean;
 }
 
 const InputField: FC<InputFieldProps> = ({
   name,
   required,
   desc,
-  type = 'text',
   noLabel,
-  defaultValue,
   light,
   secureTextEntry,
   placeholder,
+  small,
 }) => {
   const {
     control,
@@ -37,7 +37,7 @@ const InputField: FC<InputFieldProps> = ({
   const { t } = useTranslation();
 
   return (
-    <S.FieldContainer>
+    <S.FieldContainer small={small}>
       {!noLabel && (
         <S.FormLabel light={light} style={{ fontFamily: 'JosefinSans_700Bold' }}>
           {t(`form.${name}Label`)}

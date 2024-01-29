@@ -66,7 +66,7 @@ const WordsList: FC<WordsListProps> = () => {
               name='delete-outline'
               size={32}
               color='#2e2757'
-              onPress={() => (item.wordId ? deleteWord(item.wordId) : null)}
+              onPress={() => (item._id ? deleteWord(item._id) : null)}
             />
           </S.ButtonsContainer>
         </S.SingleWord>

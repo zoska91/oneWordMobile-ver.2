@@ -17,20 +17,22 @@ export const TouchableOpacity = styled.TouchableOpacity`
 
 interface SelectFieldProps {
   name: string;
-  required?: boolean;
   desc?: boolean;
   options: { value: string | number; label: string }[];
   noLabel?: boolean;
   placeholderText?: string;
+  small?: boolean;
+  required?: boolean;
 }
 
 const SelectField: FC<SelectFieldProps> = ({
   name,
-  required,
   desc,
   options,
   noLabel,
   placeholderText,
+  small,
+  required,
 }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const {
@@ -43,7 +45,7 @@ const SelectField: FC<SelectFieldProps> = ({
   const value = getValues(name);
 
   return (
-    <S.FieldContainer>
+    <S.FieldContainer small={small}>
       {!noLabel && (
         <S.FormLabel style={{ fontFamily: 'JosefinSans_700Bold' }}>
           {t(`form.${name}Label`)}

@@ -24,4 +24,5 @@ export const ButtonContainer = styled.View`
   flex-direction: column;
   width: 100%;
   gap: 30px;
+  margin-top: 30px;
 `;
