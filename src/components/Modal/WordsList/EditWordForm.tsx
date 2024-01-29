@@ -1,4 +1,3 @@
-import { useNavigation } from '@react-navigation/native';
 import { FC, useEffect, useState } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -10,7 +9,7 @@ import * as S from '../AddWordForm/AddWordForm.style';
 import InputField from '../../atoms/InputText';
 import { IInputsAddWord, ITodayWord } from '../../../types/forms';
 import useGenerateOptionsFields from '../../../helpers/useGenereteOptionsFields';
-import SelectField from '../../atoms/SelectInpout';
+import SelectField from '../../atoms/SelectInput';
 import GlobalLoader from '../../atoms/GlobalLoader';
 
 interface EditWordFormProps {
@@ -36,7 +35,6 @@ const EditWordForm: FC<EditWordFormProps> = ({ data, saveEditingWord, isLoading 
   }, [data]);
 
   const onSubmit: SubmitHandler<IInputsAddWord> = async (values) => {
-    console.log({ values });
     const body = {
       basicWord: values.basicWord,
       transWord: values.transWord,
@@ -63,9 +61,9 @@ const EditWordForm: FC<EditWordFormProps> = ({ data, saveEditingWord, isLoading 
           <TitleText> {t('form.editWordTitle')}</TitleText>
 
           <S.InputsContainer style={{ marginBottom: 0, marginTop: 0 }}>
-            <InputField name='basicWord' required />
-            <InputField name='transWord' required />
-            <SelectField name='addLang' required options={addLangOptions} />
+            <InputField name='basicWord' />
+            <InputField name='transWord' />
+            <SelectField name='addLang' options={addLangOptions} />
           </S.InputsContainer>
 
           <Button dark small onPress={handleSubmit(onSubmit)}>

@@ -6,7 +6,7 @@ import Button from '../../atoms/Button';
 import { TitleText } from '../../atoms/Title';
 import useAddWordForm from './useAddWordForm';
 import InputField from '../../atoms/InputText';
-import SelectField from '../../atoms/SelectInpout';
+import SelectField from '../../atoms/SelectInput';
 
 import * as S from './AddWordForm.style';
 
@@ -22,9 +22,9 @@ const AddWordForm: FC<AddWordFormProps> = () => {
         <TitleText> {t('form.addWordTitle')}</TitleText>
 
         <S.InputsContainer>
-          <InputField name='basicWord' required />
-          <InputField name='transWord' required />
-          <SelectField name='addLang' required options={addLangOptions} />
+          <InputField name='basicWord' small/>
+          <InputField name='transWord' small/>
+          <SelectField name='addLang' options={addLangOptions} small/>
         </S.InputsContainer>
 
         <S.ButtonContainer>

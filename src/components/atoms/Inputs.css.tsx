@@ -11,7 +11,7 @@ interface WrapperType {
 
 export const FieldContainer = styled.View<WrapperType>`
   width: 80%;
-  margin: ${({ small }) => (small ? '10px auto 0px' : '10px auto')};
+  margin: ${({ small }) => (small ? '0px auto 0px' : '10px auto')};
   padding: 0;
 `;
 

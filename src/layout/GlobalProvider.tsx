@@ -37,6 +37,7 @@ export const GlobalProvider: FC<IProps> = ({ children }) => {
     try {
       setIsLoading(true);
       const resp = await api.get(apiUrls.user);
+      
       if (resp.message === 'no logged user') {
         setIsLogin(false);
         return navigation.navigate('Home');

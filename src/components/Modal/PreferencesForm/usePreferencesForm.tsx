@@ -5,8 +5,10 @@ import { IInputsPreferences, ISettings } from '../../../types/forms';
 import useNotifications from '../../../helpers/useNotifications';
 import { Api, apiUrls } from '../../../api';
 import Toast from 'react-native-toast-message';
+import { useGlobalProvider } from '../../../layout/GlobalProvider';
 
 const usePreferencesForm = () => {
+  const { setIsLoading, isLoading } = useGlobalProvider();
   const api = new Api();
   const triggerNotification = useNotifications();
   const navigation = useNavigation();
@@ -23,8 +25,16 @@ const usePreferencesForm = () => {
   const watchBreak = watch('isBreak');
 
   const getUserSettings = async () => {
-    const resp = await api.get(apiUrls.getUserSettings);
-    if (resp) setDefaultValues(resp.data);
+    try {
+      setIsLoading(true);
+      const resp = await api.get(apiUrls.getUserSettings);
+      console.log({ resp });
+      if (resp) setDefaultValues(resp);
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -37,6 +47,8 @@ const usePreferencesForm = () => {
 
   const onSubmit: SubmitHandler<IInputsPreferences> = (data) => {
     try {
+      setIsLoading(true);
+
       console.log(222, data);
 
       const times = data.notifications.map((el) => {
@@ -51,6 +63,8 @@ const usePreferencesForm = () => {
       Toast.show({ type: 'success', text2: 'Update success' });
     } catch (e) {
       console.log(e);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -64,6 +78,7 @@ const usePreferencesForm = () => {
     append,
     remove,
     methods,
+    isLoading,
   };
 };
 
