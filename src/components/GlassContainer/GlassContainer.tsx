@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import Svg, { Defs, Rect, LinearGradient, Stop } from 'react-native-svg';
 import styled from 'styled-components/native';
 
@@ -11,17 +11,6 @@ const Wrapper = styled.View<{ type: 'dark' | 'light' }>`
   overflow: hidden;
   padding: 40px 0;
   opacity: ${({ type }) => (type === 'dark' ? 0.9 : 0.8)};
-  /* border-radius: 40% 60% 40% 60% / 60% 40% 60% 40%; */
-
-  /* text-align: center;
-  width: 90vw;
-  max-width: 500px;
-  max-height: 650px;
-  margin: auto;
-  padding: 20px 30px;
-  backdrop-filter: blur(3px);
-  box-shadow: -3px -3px 5px rgba(94, 104, 121, 0.2), 3px 3px 5px rgba(94, 104, 121, 0.2);
-  border: 3px inset rgba(220, 220, 220, 0.2); */
 `;
 
 const colors = {

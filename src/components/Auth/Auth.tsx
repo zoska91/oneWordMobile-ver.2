@@ -2,7 +2,8 @@ import { FC, useState, useRef } from 'react';
 import { Animated } from 'react-native';
 import styled from 'styled-components/native';
 
-import { Login, SignUp } from '../index';
+import Login from './Login';
+import SignUp from './SignUp';
 import GlassContainer from '../GlassContainer/GlassContainer';
 
 const Wrapper = styled.View`

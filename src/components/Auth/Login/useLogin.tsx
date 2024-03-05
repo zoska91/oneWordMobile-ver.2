@@ -5,9 +5,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-toast-message';
 import { useNavigation } from '@react-navigation/native';
 
-import { IAuth } from '../../types/forms';
-import { Api, apiUrls } from '../../api';
-import { useGlobalProvider } from '../../layout/GlobalProvider';
+import { IAuth } from '../../../types/forms';
+import { Api, apiUrls } from '../../../api';
+import { useGlobalProvider } from '../../../layout/GlobalProvider';
 
 const useLogin = () => {
   const { t } = useTranslation();

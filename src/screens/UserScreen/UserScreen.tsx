@@ -1,23 +1,22 @@
 import { FC, useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { Text } from 'react-native';
 import { SpeedDial } from '@rneui/themed';
 
 import useMenuBottom from './useMenuBottom';
 import * as S from './UserScreen.css';
+import { LearnWrapper, ShowWord } from '../../components/Learn/';
 
 const UserScreen: FC = () => {
-  const navigation = useNavigation();
   const { actions } = useMenuBottom();
 
   const [isOpenMenu, setIsOpenMenu] = useState(false);
 
   return (
     <S.Wrapper>
-      <Text>User</Text>
-      {/* <TouchableOpacity onPress={() => navigation.navigate('Home')}>
-        <Text>Go to home screen!</Text>
-      </TouchableOpacity> */}
+      <Text>Today word</Text>
+      <LearnWrapper>
+        <ShowWord />
+      </LearnWrapper>
       <SpeedDial
         color='#2e2757'
         isOpen={isOpenMenu}

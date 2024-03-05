@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { ILearnType } from '../types/learn';
 
 interface option {
   value: string | number;
@@ -24,10 +25,10 @@ const useGenerateOptionsFields = () => {
   ];
 
   const learnTypesOptions = [
-    { value: '1', label: 'Show word' },
-    { value: '2', label: 'Quiz' },
-    { value: '3', label: 'Gues word' },
-    { value: '4', label: 'Appear word ' },
+    { value: ILearnType.SHOW_WORD, label: 'Show word' },
+    { value: ILearnType.QUIZ, label: 'Quiz' },
+    { value: ILearnType.GUESS_WORD, label: 'Guess word' },
+    { value: ILearnType.APPEAR_WORD, label: 'Appear word ' },
   ];
 
   const statusDictOptions = [

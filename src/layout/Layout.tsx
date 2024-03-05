@@ -1,4 +1,4 @@
-import { PropsWithChildren, createContext } from 'react';
+import { PropsWithChildren } from 'react';
 import { Dimensions, View } from 'react-native';
 import Svg, { RadialGradient, Defs, Stop, Rect } from 'react-native-svg';
 

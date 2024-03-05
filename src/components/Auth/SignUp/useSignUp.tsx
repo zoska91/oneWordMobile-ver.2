@@ -1,13 +1,12 @@
-import { useContext } from 'react';
 import { useForm, SubmitHandler, SubmitErrorHandler } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-toast-message';
 
-import { IAuth } from '../../types/forms';
-import { Api, apiUrls } from '../../api';
-import { useGlobalProvider } from '../../layout/GlobalProvider';
+import { IAuth } from '../../../types/forms';
+import { Api, apiUrls } from '../../../api';
+import { useGlobalProvider } from '../../../layout/GlobalProvider';
 
 const useSignUpForm = () => {
   const { t } = useTranslation();
@@ -33,7 +32,7 @@ const useSignUpForm = () => {
 
         await AsyncStorage.setItem('token', respLogin.token);
 
-        if (respLogin.message === 'success') {
+        if (respLogin.message === 'Login Successful') {
           Toast.show({ type: 'success', text2: 'success' });
           navigation.navigate('User');
           setIsLogin(true);

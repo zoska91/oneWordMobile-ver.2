@@ -15,11 +15,7 @@ interface IModalScreenProps {
 const ModalScreen: FC<IModalScreenProps> = ({ route }) => {
   const { isLoading } = useGlobalProvider();
 
-  console.log(1, { route: route.params?.params });
-
-  const type = route?.params?.params?.type;
   const action = route?.params?.params?.action;
-  const navigation = useNavigation();
 
   return (
     <View style={styles.container}>

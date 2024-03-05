@@ -6,12 +6,13 @@ import { generateBoxShadowStyle } from '../../helpers/generateBoxShadowStyle';
 import { Platform } from 'react-native';
 
 interface ButtonProps {
-  children: JSX.Element | string;
+  children: React.ReactNode | string;
   onPress?: () => any | SubmitHandler<IAuth>;
   dark?: boolean;
   disabled?: boolean;
   small?: boolean;
   secondaryColor?: boolean;
+  icon?: React.ReactNode;
 }
 
 interface styleWrapperProps {
@@ -22,6 +23,11 @@ interface styleWrapperProps {
 }
 
 const Wrapper = styled.TouchableOpacity<styleWrapperProps>`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+
   background-color: ${({ theme, dark, secondaryColor }) =>
     dark ? theme.colorPrimary : secondaryColor ? theme.colorSecondary : '#f7f9fc'};
   border: none;
@@ -47,7 +53,15 @@ const Text = styled.Text<styleWrapperProps>`
   text-align: center;
 `;
 
-const Button: FC<ButtonProps> = ({ children, onPress, dark, disabled, small, secondaryColor }) => {
+const Button: FC<ButtonProps> = ({ 
+  children, 
+  onPress, 
+  dark, 
+  disabled, 
+  small, 
+  secondaryColor, 
+  icon 
+}) => {
   return (
     <Wrapper
       onPress={onPress}
@@ -57,6 +71,7 @@ const Button: FC<ButtonProps> = ({ children, onPress, dark, disabled, small, sec
       secondaryColor={secondaryColor}
       style={{ ...generateBoxShadowStyle(-5, -5, '#000', 0.5, 3, 4, '#000', Platform.OS) }}
     >
+      {icon && icon}
       <Text
         secondaryColor={secondaryColor}
         dark={dark ? true : false}

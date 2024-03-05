@@ -9,6 +9,12 @@ declare module 'styled-components' {
     colorDanger: string;
 
     status: string[];
+    tipColors: {
+      success: string;
+      info: string;
+      error: string;
+      warning: string;
+    }
   }
 }
 
@@ -23,4 +29,10 @@ export const theme: DefaultTheme = {
   correctAnsw: '#009300',
 
   status: ['#7d90f2', '#8c3a68', '#009300'],
+  tipColors: {
+    success: '56, 142, 60',
+    info: '2, 136, 209',
+    error: '244, 67, 54',
+    warning: '245, 124, 0'
+  }
 };

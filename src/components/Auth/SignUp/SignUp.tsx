@@ -1,15 +1,15 @@
-import { FC } from 'react';
+import React, { FC } from 'react';
 import { FormProvider } from 'react-hook-form';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Animated } from 'react-native';
 
-import { TitleText } from '../atoms/Title';
-import Button from '../atoms/Button';
-import InputText from '../atoms/InputText';
+import { TitleText } from '../../atoms/Title';
+import Button from '../../atoms/Button';
+import InputText from '../../atoms/InputText';
 
 import * as S from './SignUp.css';
 import useSignUpForm from './useSignUp';
-import TextWrapper from '../atoms/TextWrapper';
+import TextWrapper from '../../atoms/TextWrapper';
 
 interface SignFormProps {
   toggleAuth: () => void;

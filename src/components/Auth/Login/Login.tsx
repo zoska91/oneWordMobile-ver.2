@@ -5,12 +5,12 @@ import { useTranslation } from 'react-i18next';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import useLogin from './useLogin';
-import { TitleText } from '../atoms/Title';
-import Button from '../atoms/Button';
-import InputText from '../atoms/InputText';
+import { TitleText } from '../../atoms/Title';
+import Button from '../../atoms/Button';
+import InputText from '../../atoms/InputText';
 
 import * as S from './Login.css';
-import TextWrapper from '../atoms/TextWrapper';
+import TextWrapper from '../../atoms/TextWrapper';
 interface LoginFormProps {
   toggleAuth: () => void;
   currentScale: Animated.Value;
