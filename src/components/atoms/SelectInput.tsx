@@ -43,6 +43,7 @@ const SelectField: FC<SelectFieldProps> = ({
 
   const { t } = useTranslation();
   const value = getValues(name);
+  console.log(value, options);
 
   return (
     <S.FieldContainer small={small}>

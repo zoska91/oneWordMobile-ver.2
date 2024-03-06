@@ -12,7 +12,6 @@ interface InputFieldProps {
   desc?: boolean;
   type?: string;
   noLabel?: boolean;
-  defaultValue?: string;
   light?: boolean;
   secureTextEntry?: boolean;
   placeholder?: string;
