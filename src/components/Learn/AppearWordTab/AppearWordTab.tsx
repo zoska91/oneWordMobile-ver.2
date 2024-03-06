@@ -1,18 +1,17 @@
 import { FC } from 'react';
-import { Text, View } from 'react-native';
 import { TitleText } from '../../atoms/Title';
 
 import * as S from '../Learn.css';
 
-interface ShowWordProps {}
+interface AppearWordTabProps {}
 
-const ShowWord: FC<ShowWordProps> = () => {
+const AppearWordTab: FC<AppearWordTabProps> = () => {
   return (
-    <S.WordWrapper>
+    <>
       <TitleText small>Pies</TitleText>
       <TitleText>Dog</TitleText>
-    </S.WordWrapper>
+    </>
   );
 };
 
-export default ShowWord;
+export default AppearWordTab;

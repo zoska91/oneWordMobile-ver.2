@@ -14,7 +14,7 @@ declare module 'styled-components' {
       info: string;
       error: string;
       warning: string;
-    }
+    };
   }
 }
 
@@ -32,7 +32,7 @@ export const theme: DefaultTheme = {
   tipColors: {
     success: '56, 142, 60',
     info: '2, 136, 209',
-    error: '244, 67, 54',
-    warning: '245, 124, 0'
-  }
+    error: '178, 35, 52',
+    warning: '245, 124, 0',
+  },
 };

@@ -12,12 +12,16 @@ import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { Api, apiUrls } from '../api';
+import { ILearnType } from '../types/learn';
 
 interface EventViewContextValue {
   isLoading: boolean;
   setIsLoading: Dispatch<SetStateAction<boolean>>;
   isLogin: boolean;
   setIsLogin: Dispatch<SetStateAction<boolean>>;
+  todayWord: any;
+  setTodayWord: Dispatch<SetStateAction<boolean>>;
+  learnType: ILearnType;
 }
 
 interface IProps {
@@ -32,6 +36,8 @@ export const GlobalProvider: FC<IProps> = ({ children }) => {
 
   const [isLogin, setIsLogin] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [todayWord, setTodayWord] = useState({});
+  const [learnType, setLearnType] = useState(ILearnType.SHOW_WORD);
 
   const getUser = async () => {
     try {
@@ -57,7 +63,15 @@ export const GlobalProvider: FC<IProps> = ({ children }) => {
     getUser();
   }, []);
 
-  const value = { isLoading, isLogin, setIsLoading, setIsLogin };
+  const value = { 
+    isLoading, 
+    isLogin, 
+    setIsLoading, 
+    setIsLogin,
+    todayWord,
+    setTodayWord,
+    learnType,
+  };
 
   return <EventViewContext.Provider value={value}>{children}</EventViewContext.Provider>;
 };

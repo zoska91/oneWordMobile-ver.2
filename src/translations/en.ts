@@ -14,7 +14,7 @@ export const en = {
     iKnow: 'We mark this word as you know. Next word will be different!',
     goodToKnow: `It's another small step to success! Great!`,
     dontGiveUp: `Next time will be better! Don't give up and try again!`,
-    correctAnswer: `Greate! It's good answer`,
+    correctAnswer: `Great! It's a good answer`,
   },
   closeLearn: `Take a break! We will let you know when it's time to learn :)`,
   breakDayView: `Today is a break day! Just rest!`,
@@ -22,6 +22,7 @@ export const en = {
     close: 'Close',
     submit: 'Submit',
     withGoogle: `Let's go with Google`,
+    learned: `Learned`,
   },
 
   form: {

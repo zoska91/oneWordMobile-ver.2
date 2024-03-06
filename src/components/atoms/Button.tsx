@@ -20,6 +20,7 @@ interface styleWrapperProps {
   disabled?: boolean;
   small?: boolean;
   secondaryColor?: boolean;
+  border?: string;
 }
 
 const Wrapper = styled.TouchableOpacity<styleWrapperProps>`
@@ -51,16 +52,17 @@ const Text = styled.Text<styleWrapperProps>`
     dark || secondaryColor ? '#ffffff' : theme.colorPrimary};
   font-size: 16px;
   text-align: center;
+  width: 100%;
 `;
 
-const Button: FC<ButtonProps> = ({ 
-  children, 
-  onPress, 
-  dark, 
-  disabled, 
-  small, 
-  secondaryColor, 
-  icon 
+const Button: FC<ButtonProps> = ({
+  children,
+  onPress,
+  dark,
+  disabled,
+  small,
+  secondaryColor,
+  icon,
 }) => {
   return (
     <Wrapper

@@ -1,4 +1,7 @@
 import LearnWrapper from './LearnWrapper';
-import ShowWord from './ShowWord';
+import ShowWordTab from './ShowWordTab';
+import GuessWordTab from './GuessWordTab';
+import QuizTab from './QuizTab';
+import AppearWordTab from './AppearWordTab';
 
-export { LearnWrapper, ShowWord };
+export { LearnWrapper, ShowWordTab, GuessWordTab, AppearWordTab, QuizTab };
