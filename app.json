@@ -1,6 +1,7 @@
 {
   "expo": {
     "name": "oneWordMobile-ver.2",
+    "scheme": "oneWordMobile",
     "slug": "oneWordMobile-ver.2",
     "version": "1.0.0",
     "orientation": "portrait",

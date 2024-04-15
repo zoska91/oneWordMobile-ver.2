@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
 import { useNavigation } from '@react-navigation/native';
-import { IInputsPreferences, ISettings } from '../../../types/forms';
+import { IInputsPreferences, ISingleNotification } from '../../../types/forms';
 import useNotifications from '../../../helpers/useNotifications';
 import { Api, apiUrls } from '../../../api';
 import Toast from 'react-native-toast-message';
@@ -13,9 +13,9 @@ const usePreferencesForm = () => {
   const triggerNotification = useNotifications();
   const navigation = useNavigation();
 
-  const [defaultValues, setDefaultValues] = useState<ISettings | null>(null);
+  const [defaultValues, setDefaultValues] = useState<IInputsPreferences | null>(null);
 
-  const methods = useForm();
+  const methods = useForm<IInputsPreferences>();
   const { control, handleSubmit, watch, reset } = methods;
   const { fields, append, remove } = useFieldArray({
     control,
@@ -28,8 +28,17 @@ const usePreferencesForm = () => {
     try {
       setIsLoading(true);
       const resp = await api.get(apiUrls.getUserSettings);
-      console.log({ resp });
-      if (resp) setDefaultValues(resp);
+      const formattedResp = {
+        ...resp,
+        summaryDay: Number(resp.summaryDay),
+        breakDay: Number(resp.breakDay),
+        notifications: resp.notifications.map((notification: ISingleNotification) => ({
+          ...notification,
+          type: Number(notification.type),
+        })),
+      };
+
+      if (resp) setDefaultValues(formattedResp);
     } catch (e) {
       console.log(e);
     } finally {
@@ -56,11 +65,12 @@ const usePreferencesForm = () => {
         return { hour: +hour, minute: +minute };
       });
 
-      // triggerNotification(times);
+      triggerNotification(times);
 
       if (defaultValues?.id) api.put(`${apiUrls.updateUserSettings}/${defaultValues.id}`, data);
 
       Toast.show({ type: 'success', text2: 'Update success' });
+      navigation.goBack();
     } catch (e) {
       console.log(e);
     } finally {

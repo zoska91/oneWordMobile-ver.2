@@ -91,7 +91,6 @@ const PreferencesForm: FC<PreferencesFormProps> = () => {
               <S.Placeholder />
             </S.Wrapper>
             <View style={{ marginBottom: 40 }}>
-              {/* @ts-ignore */}
               <Button secondaryColor onPress={handleSubmit(onSubmit)}>
                 {t('buttons.submit')}
               </Button>
