@@ -16,10 +16,11 @@ export const apiUrls = {
   // settings
   getUserSettings: 'settings/user-settings', // GET
   updateUserSettings: 'settings/user-settings', //PUT
-  
+
   // words
   getAllWords: 'words/all', //GET
   addWord: 'words/add-one', //POST
+  sendCsv: 'words/add-csv', //POST
   updateWord: (id: string) => `words/update-one/${id}`, //PUT
   deleteWord: (id: string) => `words/delete-one/${id}`, // DELETE
 
@@ -35,7 +36,6 @@ export class Api {
 
   async get<ResponseContent>(url: string, params?: {}) {
     const headers = await this.getHeaders();
-    console.log({headers})
 
     const searchParams = new URLSearchParams(params);
     const resp = await fetch(this.getUrl(`${url}${searchParams}`), {
@@ -47,13 +47,21 @@ export class Api {
     return json;
   }
 
-  async post<ResponseContent>(url: string, body: {} = {}) {
+  async post<ResponseContent>(url: string, body: Record<string, unknown> | FormData = {}) {
     const headers = await this.getHeaders();
+
+    let fetchBody;
+
+    if (typeof body === 'object' && !(body instanceof FormData)) {
+      fetchBody = JSON.stringify(body);
+    } else {
+      fetchBody = body;
+    }
 
     const resp = await fetch(this.getUrl(url), {
       method: 'POST',
       headers,
-      body: JSON.stringify(body),
+      body: fetchBody,
     });
 
     const json = await resp.json();
@@ -85,14 +93,15 @@ export class Api {
     return json;
   }
 
-  async getHeaders() {
+  async getHeaders(isForm?: boolean) {
     const token = await AsyncStorage.getItem('token');
 
     if (!token) return headers;
-
+    const formHeader = isForm ? { 'Content-Type': 'multipart/form-data' } : {};
     return {
       ...headers,
       Authorization: `Bearer ${token}`,
+      ...formHeader,
     };
   }
 }

@@ -26,9 +26,12 @@ const useMenuBottom = () => {
     {
       icon: { name: 'add', color: '#fff' },
       name: t('actionsBottomMenu.addWord'),
-      onClick: () => {
-        openModal('addWord');
-      },
+      onClick: () => openModal('addWord'),
+    },
+    {
+      icon: { name: 'add', color: '#fff' },
+      name: t('actionsBottomMenu.addCsv'),
+      onClick: () => openModal('addCsv'),
     },
     {
       icon: { name: 'list', color: '#fff' },

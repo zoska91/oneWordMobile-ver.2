@@ -15,6 +15,7 @@ export const en = {
     goodToKnow: `It's another small step to success! Great!`,
     dontGiveUp: `Next time will be better! Don't give up and try again!`,
     correctAnswer: `Great! It's a good answer`,
+    shouldBe: 'Correct answer:',
   },
   closeLearn: `Take a break! We will let you know when it's time to learn :)`,
   breakDayView: `Today is a break day! Just rest!`,
@@ -27,6 +28,7 @@ export const en = {
 
   form: {
     addWordTitle: 'Add word',
+
     preferencesTitle: 'Preferences',
 
     require: 'This is required',
@@ -81,6 +83,15 @@ export const en = {
 
     statusLabel: 'Status',
     statusPlaceholder: 'Select status',
+
+    // csv
+    csvTitle: 'Add words from csv file',
+    csvWrongFormat: 'File must have csv format',
+    csvYouChose: 'You chose:',
+    csvAddFile: 'Add file',
+    csvChangeFile: 'Change file',
+    csvSaveFile: 'Save file',
+    csvSuccess: 'Words have been added',
   },
   days: {
     1: 'Monday',
@@ -101,6 +112,7 @@ export const en = {
   },
   actionsBottomMenu: {
     addWord: 'add word',
+    addCsv: 'Add words from csv',
     wordsList: 'words list',
     logout: 'logout',
     preferences: 'preferences',

@@ -4,7 +4,7 @@ import { SpeedDial } from '@rneui/themed';
 
 import useMenuBottom from './useMenuBottom';
 import * as S from './UserScreen.css';
-import { LearnWrapper, QuizTab, ShowWordTab } from '../../components/Learn/';
+import { AppearWordTab, GuessWordTab, LearnWrapper, QuizTab, ShowWordTab } from '../../components/Learn/';
 
 const UserScreen: FC = () => {
   const { actions } = useMenuBottom();
@@ -17,7 +17,15 @@ const UserScreen: FC = () => {
       <Text>Today word</Text>
       <LearnWrapper isLearnButtonVisible={isLearnButtonVisible}>
         {/* <ShowWordTab setIsLearnButtonVisible={setIsLearnButtonVisible} /> */}
-        <QuizTab
+        {/* <QuizTab
+          setIsLearnButtonVisible={setIsLearnButtonVisible}
+          isLearnButtonVisible={isLearnButtonVisible}
+        /> */}
+        {/* <AppearWordTab 
+          setIsLearnButtonVisible={setIsLearnButtonVisible}
+          isLearnButtonVisible={isLearnButtonVisible}
+        /> */}
+        <GuessWordTab
           setIsLearnButtonVisible={setIsLearnButtonVisible}
           isLearnButtonVisible={isLearnButtonVisible}
         />

@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
 import Button from '../atoms/Button';
+import { StyledInput } from '../atoms/Inputs.css';
 
 // Wrapper
 export const Wrapper = styled.View`
@@ -58,3 +59,8 @@ export const StyledButton = styled(Button)`
   border-width: 10px;
   border-style: solid;
 `;
+
+export const GuessingInput = styled(StyledInput)<{status: 'success' | 'error' | null}>`
+  font-size: 24px;
+  height: 200px;
+`

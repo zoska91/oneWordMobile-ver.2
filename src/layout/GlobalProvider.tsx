@@ -9,7 +9,6 @@ import {
   SetStateAction,
 } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { Api, apiUrls } from '../api';
 import { ILearnType } from '../types/learn';
@@ -20,7 +19,6 @@ interface EventViewContextValue {
   isLogin: boolean;
   setIsLogin: Dispatch<SetStateAction<boolean>>;
   todayWord: any;
-  setTodayWord: Dispatch<SetStateAction<boolean>>;
   learnType: ILearnType;
 }
 
@@ -43,14 +41,14 @@ export const GlobalProvider: FC<IProps> = ({ children }) => {
     try {
       setIsLoading(true);
       const resp = await api.get(apiUrls.user);
-      
+
       if (resp.message === 'no logged user') {
         setIsLogin(false);
         return navigation.navigate('Home');
       } else {
         setIsLogin(true);
-
         navigation.navigate('User');
+        // await getTodayWord();
       }
     } catch (e) {
       console.log(2, e);
@@ -59,17 +57,22 @@ export const GlobalProvider: FC<IProps> = ({ children }) => {
     }
   };
 
+  const getTodayWord = async () => {
+    const resp = await api.get(apiUrls.getTodayWord);
+    console.log({ resp });
+    // setTodayWord(resp);
+  };
+
   useEffect(() => {
     getUser();
   }, []);
 
-  const value = { 
-    isLoading, 
-    isLogin, 
-    setIsLoading, 
+  const value = {
+    isLoading,
+    isLogin,
+    setIsLoading,
     setIsLogin,
     todayWord,
-    setTodayWord,
     learnType,
   };
 
