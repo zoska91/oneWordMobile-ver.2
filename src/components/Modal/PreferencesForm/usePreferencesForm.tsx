@@ -58,8 +58,6 @@ const usePreferencesForm = () => {
     try {
       setIsLoading(true);
 
-      console.log(222, data);
-
       const times = data.notifications.map((el) => {
         const [hour, minute] = el.time.split(':');
         return { hour: +hour, minute: +minute };

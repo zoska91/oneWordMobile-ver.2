@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import * as Permissions from 'expo-permissions';
 import * as Notification from 'expo-notifications';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
@@ -19,20 +18,19 @@ const useNotifications = () => {
   const { t } = useTranslation();
   const navigation = useNavigation();
 
+  const getPermission = async () => {
+    const { status } = await Notification.getPermissionsAsync();
+    if (status !== 'granted') {
+      const { status: newStatus } = await Notification.requestPermissionsAsync();
+      if (newStatus !== 'granted') {
+        alert('So sad');
+        return;
+      }
+    }
+  };
+
   useEffect(() => {
-    Permissions.askAsync(Permissions.NOTIFICATIONS)
-      .then((statusObj) => {
-        if (statusObj.status !== 'granted') {
-          return Permissions.askAsync(Permissions.NOTIFICATIONS);
-        }
-        return statusObj;
-      })
-      .then((statusObj) => {
-        if (statusObj?.status !== 'granted') {
-          alert('So sad ');
-          return;
-        }
-      });
+    getPermission();
   }, []);
 
   const triggerNotification = (data: { hour: number; minute: number }[]) => {
