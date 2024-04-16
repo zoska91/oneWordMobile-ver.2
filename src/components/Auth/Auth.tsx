@@ -8,11 +8,11 @@ import GlassContainer from '../GlassContainer/GlassContainer';
 
 const Wrapper = styled.View`
   position: absolute;
-  top: 25%;
+  top: 22%;
   left: 0;
   padding-top: 20px;
   width: 100%;
-  height: 100%;
+  height: 110%;
 `;
 
 interface AuthAuthProps {}

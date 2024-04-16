@@ -11,6 +11,7 @@ import InputText from '../../atoms/InputText';
 
 import * as S from './Login.css';
 import TextWrapper from '../../atoms/TextWrapper';
+import ErrorText from '../../atoms/ErrorText';
 interface LoginFormProps {
   toggleAuth: () => void;
   currentScale: Animated.Value;
@@ -20,7 +21,7 @@ interface LoginFormProps {
 const LoginForm: FC<LoginFormProps> = ({ toggleAuth, currentScale, currentOpacityLogin }) => {
   const { t } = useTranslation();
 
-  const { methods, handleSubmit, onSubmit, onError } = useLogin();
+  const { methods, handleSubmit, onSubmit } = useLogin();
 
   return (
     <Animated.View
@@ -42,12 +43,12 @@ const LoginForm: FC<LoginFormProps> = ({ toggleAuth, currentScale, currentOpacit
               <InputText name='password' required secureTextEntry />
             </S.InputsContainer>
 
-            <Button secondaryColor onPress={handleSubmit(onSubmit, onError)}>
-              Log in
+            <Button secondaryColor onPress={handleSubmit(onSubmit)}>
+              {t('buttons.login')}
             </Button>
             <S.RegisterButton onPress={toggleAuth}>
               <TextWrapper center medium>
-                Register
+                {t('buttons.register')}
               </TextWrapper>
             </S.RegisterButton>
           </KeyboardAwareScrollView>

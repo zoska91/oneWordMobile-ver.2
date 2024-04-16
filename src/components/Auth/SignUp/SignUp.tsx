@@ -2,14 +2,16 @@ import React, { FC } from 'react';
 import { FormProvider } from 'react-hook-form';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Animated } from 'react-native';
+import { useTranslation } from 'react-i18next';
 
 import { TitleText } from '../../atoms/Title';
 import Button from '../../atoms/Button';
 import InputText from '../../atoms/InputText';
 
-import * as S from './SignUp.css';
 import useSignUpForm from './useSignUp';
 import TextWrapper from '../../atoms/TextWrapper';
+
+import * as S from './SignUp.css';
 
 interface SignFormProps {
   toggleAuth: () => void;
@@ -17,7 +19,8 @@ interface SignFormProps {
 }
 
 const SignUp: FC<SignFormProps> = ({ toggleAuth, currentScale }) => {
-  const { methods, handleSubmit, onSubmit, onError } = useSignUpForm();
+  const { t } = useTranslation();
+  const { methods, handleSubmit, onSubmit } = useSignUpForm();
 
   return (
     <Animated.View
@@ -29,19 +32,19 @@ const SignUp: FC<SignFormProps> = ({ toggleAuth, currentScale }) => {
       <FormProvider {...methods}>
         <S.FormWrapper>
           <KeyboardAwareScrollView>
-            <TitleText light>Sign Up</TitleText>
+            <TitleText light>{t('form.signUpTitle')}</TitleText>
 
             <S.InputsContainer>
               <InputText name='email' required light />
               <InputText name='password' required light secureTextEntry />
             </S.InputsContainer>
 
-            <Button secondaryColor onPress={handleSubmit(onSubmit, onError)}>
-              Sign in
+            <Button secondaryColor onPress={handleSubmit(onSubmit)}>
+              {t('buttons.signUp')}
             </Button>
             <S.RegisterButton onPress={toggleAuth}>
               <TextWrapper center medium>
-                Login
+                {t('buttons.login')}
               </TextWrapper>
             </S.RegisterButton>
           </KeyboardAwareScrollView>

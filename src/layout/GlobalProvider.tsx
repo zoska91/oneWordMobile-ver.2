@@ -14,6 +14,8 @@ import { Api, apiUrls } from '../api';
 import { ILearnType } from '../types/learn';
 import { ITodayWord } from '../types/forms';
 import { checkIsBreakDay, getCurrentLearnType } from '../helpers/useGetCurretnLearnType';
+import Toast from 'react-native-toast-message';
+import { useTranslation } from 'react-i18next';
 
 interface GLobalProviderContextValue {
   isLoading: boolean;
@@ -36,6 +38,7 @@ const EventViewContext = createContext<GLobalProviderContextValue>(
 
 export const GlobalProvider: FC<IProps> = ({ children }) => {
   const api = new Api();
+  const { t } = useTranslation();
   const navigation = useNavigation();
 
   const [isLogin, setIsLogin] = useState(false);
@@ -58,7 +61,7 @@ export const GlobalProvider: FC<IProps> = ({ children }) => {
         await getTodayWord();
       }
     } catch (e) {
-      console.log(2, e);
+      Toast.show({ type: 'error', text2: t('api.error') });
     } finally {
       setIsLoading(false);
     }

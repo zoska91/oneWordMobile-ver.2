@@ -19,7 +19,7 @@ export interface IPasswordReminder {
 }
 
 export interface IInputsPreferences {
-  id?: string;
+  _id?: string;
   notifications: ISingleNotification[];
   lang: string;
   isSummary: boolean;

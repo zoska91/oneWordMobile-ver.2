@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import _ from 'lodash';
+
 import { IInputsAddWord, ITodayWord } from '../../../types/forms';
 import { Api, apiUrls } from '../../../api';
 import { useGlobalProvider } from '../../../layout/GlobalProvider';
+import Toast from 'react-native-toast-message';
 
 const emptyWord = {
   basicWord: '',
@@ -30,11 +32,11 @@ const useWordsList = () => {
 
     try {
       const resp = await api.get(apiUrls.getAllWords);
-
-      setWords(_.cloneDeep(resp.words));
-      setBasicWords(_.cloneDeep(resp.words));
+      const sortedWords = resp.words.sort((a: ITodayWord, b: ITodayWord) => b.status - a.status);
+      setWords(_.cloneDeep(sortedWords));
+      setBasicWords(_.cloneDeep(sortedWords));
     } catch (e) {
-      console.log(e);
+      Toast.show({ type: 'success', text2: t('api.error') });
     } finally {
       setIsLoading(false);
     }
@@ -47,7 +49,7 @@ const useWordsList = () => {
       await api.delete(apiUrls.deleteWord(wordId));
       await getAllWords();
     } catch (e) {
-      console.log(e);
+      Toast.show({ type: 'success', text2: t('api.error') });
     } finally {
       setIsLoading(false);
     }
@@ -64,7 +66,7 @@ const useWordsList = () => {
         return 'success';
       }
     } catch (e) {
-      console.log(e);
+      Toast.show({ type: 'success', text2: t('api.error') });
     } finally {
       setIsLoading(false);
     }

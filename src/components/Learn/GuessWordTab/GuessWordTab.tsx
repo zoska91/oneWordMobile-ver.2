@@ -6,7 +6,6 @@ import { generateBoxShadowStyle } from '../../../helpers/generateBoxShadowStyle'
 import { GuessingInput } from '../Learn.css';
 import Button from '../../atoms/Button';
 import Tip from '../../atoms/Tip';
-import { useGlobalProvider } from '../../../layout/GlobalProvider';
 import { TitleText } from '../../atoms/Title';
 import { ITodayWord } from '../../../types/forms';
 

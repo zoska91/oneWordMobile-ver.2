@@ -11,13 +11,8 @@ interface WrapperType {
 
 export const FieldContainer = styled.View<WrapperType>`
   width: 80%;
-  margin: ${({ small }) => (small ? '0px auto 0px' : '10px auto')};
+  margin: ${({ small }) => (small ? '0px auto 0px' : '20px auto 0')};
   padding: 0;
-`;
-
-export const ErrorText = styled.Text`
-  font-size: 12px;
-  color: #a50000;
 `;
 
 export const Desc = styled.Text<LabelType>`
@@ -90,9 +85,21 @@ export const StyledInput = styled.TextInput<{ status?: string }>`
   text-align: center;
   width: 100%;
   height: 35px;
-  margin: 10px auto 20px auto;
+  margin: 10px auto 10px auto;
   padding: 5px;
   background-color: ${({ theme }) => theme.colorLighter};
   border-radius: 30px;
   border-color: ${({ theme, status }) => (status === 'danger' ? theme.colorDanger : 'transparent')};
+`;
+
+export const TimePickerWrapper = styled.TouchableOpacity`
+  text-align: center;
+  width: 100%;
+  height: 35px;
+  margin: 10px auto 10px auto;
+  padding: 5px;
+  background-color: ${({ theme }) => theme.colorLighter};
+  border-radius: 30px;
+  align-items: center;
+  justify-content: center;
 `;

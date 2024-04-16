@@ -70,6 +70,8 @@ export class Api {
   }
 
   async put<ResponseContent>(url: string, body: {} = {}) {
+    console.log({ body });
+
     const headers = await this.getHeaders();
 
     const resp = await fetch(this.getUrl(url), {
@@ -77,7 +79,11 @@ export class Api {
       headers,
       body: JSON.stringify(body),
     });
+    console.log(resp);
+
     const json = await resp.json();
+    console.log({ json });
+
     return json;
   }
 

@@ -1,15 +1,19 @@
 import { useEffect, useState } from 'react';
 import { SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
 import { useNavigation } from '@react-navigation/native';
+
 import { IInputsPreferences, ISingleNotification } from '../../../types/forms';
 import useNotifications from '../../../helpers/useNotifications';
 import { Api, apiUrls } from '../../../api';
 import Toast from 'react-native-toast-message';
 import { useGlobalProvider } from '../../../layout/GlobalProvider';
+import { useTranslation } from 'react-i18next';
 
 const usePreferencesForm = () => {
-  const { setIsLoading, isLoading } = useGlobalProvider();
   const api = new Api();
+  const { t } = useTranslation();
+
+  const { setIsLoading, isLoading } = useGlobalProvider();
   const triggerNotification = useNotifications();
   const navigation = useNavigation();
 
@@ -40,7 +44,7 @@ const usePreferencesForm = () => {
 
       if (resp) setDefaultValues(formattedResp);
     } catch (e) {
-      console.log(e);
+      Toast.show({ type: 'success', text2: t('api.error') });
     } finally {
       setIsLoading(false);
     }
@@ -54,7 +58,7 @@ const usePreferencesForm = () => {
     if (defaultValues) reset(defaultValues);
   }, [defaultValues]);
 
-  const onSubmit: SubmitHandler<IInputsPreferences> = (data) => {
+  const onSubmit: SubmitHandler<IInputsPreferences> = async (data) => {
     try {
       setIsLoading(true);
 
@@ -64,13 +68,14 @@ const usePreferencesForm = () => {
       });
 
       triggerNotification(times);
-
-      if (defaultValues?.id) api.put(`${apiUrls.updateUserSettings}/${defaultValues.id}`, data);
-
-      Toast.show({ type: 'success', text2: 'Update success' });
-      navigation.goBack();
+      if (defaultValues?._id) {
+        const resp = await api.put(apiUrls.updateUserSettings, data);
+        if (resp.message === 'Update success')
+          Toast.show({ type: 'success', text2: 'Update success' });
+        else Toast.show({ type: 'success', text2: t('api.error') });
+      }
     } catch (e) {
-      console.log(e);
+      Toast.show({ type: 'success', text2: t('api.error') });
     } finally {
       setIsLoading(false);
     }

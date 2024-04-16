@@ -40,10 +40,10 @@ const GlassContainer: FC<IProps> = ({ children, type }) => {
     <Wrapper
       type={type}
       style={{
-        borderTopLeftRadius: 80,
-        borderTopRightRadius: 80,
-        borderBottomLeftRadius: 80,
-        borderBottomRightRadius: 80,
+        borderTopLeftRadius: 50,
+        borderTopRightRadius: 50,
+        borderBottomLeftRadius: 50,
+        borderBottomRightRadius: 50,
       }}
     >
       <Svg height='120%' width='100%' style={StyleSheet.absoluteFillObject}>
@@ -54,7 +54,7 @@ const GlassContainer: FC<IProps> = ({ children, type }) => {
             ))}
           </LinearGradient>
         </Defs>
-        <Rect width='100%' height='100%' fill='url(#grad)' />
+        <Rect width='100%' height='110%' fill='url(#grad)' />
       </Svg>
       {children}
     </Wrapper>

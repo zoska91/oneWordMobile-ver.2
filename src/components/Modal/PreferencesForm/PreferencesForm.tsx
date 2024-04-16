@@ -15,6 +15,7 @@ import SelectField from '../../atoms/SelectInput';
 import CheckboxField from '../../atoms/Checkbox';
 
 import * as S from './PreferencesForm.css';
+import TimePicker from '../../atoms/TimePicker';
 
 interface PreferencesFormProps {}
 
@@ -83,13 +84,7 @@ const PreferencesForm: FC<PreferencesFormProps> = () => {
                     noLabel
                     placeholderText={t('form.notificationSelectPlaceholder')}
                   />
-                  <InputField
-                    placeholder={t('form.notificationHourPlaceholder')}
-                    name={`notifications.${index}.time`}
-                    required
-                    type='time'
-                    noLabel
-                  />
+                  <TimePicker name={`notifications.${index}.time`} />
                 </>
               ))}
               {/* problem with scrolling on iOS */}

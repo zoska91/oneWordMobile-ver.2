@@ -18,12 +18,7 @@ const useSignUpForm = () => {
   const methods = useForm<IAuth>();
   const { handleSubmit } = methods;
 
-  const onError: SubmitErrorHandler<IAuth> = (errors, e) => {
-    return console.log(errors);
-  };
-
   const onSubmit: SubmitHandler<IAuth> = async ({ email, password }) => {
-    console.log('submnit rtegister');
     try {
       setIsLoading(true);
       const respSignUp = await api.post(apiUrls.signup, { username: email, password });
@@ -39,13 +34,13 @@ const useSignUpForm = () => {
         } else Toast.show({ type: 'error', text2: respLogin.message });
       } else Toast.show({ type: 'error', text2: respSignUp.message });
     } catch (e) {
-      console.log(2, e);
+      Toast.show({ type: 'error', text2: t('api.error') });
     } finally {
       setIsLoading(false);
     }
   };
 
-  return { methods, handleSubmit, onSubmit, onError };
+  return { methods, handleSubmit, onSubmit };
 };
 
 export default useSignUpForm;

@@ -26,6 +26,9 @@ export const en = {
     learned: `Learned`,
     check: 'Check',
     showTrans: 'Show translation',
+    login: 'Login',
+    register: 'Register',
+    signUp: 'Sign up',
   },
 
   form: {
@@ -73,7 +76,7 @@ export const en = {
 
     // auth
     loginTitle: 'Log in',
-    signinTitle: 'Sign in',
+    signUpTitle: 'Sign up',
 
     emailLabel: 'Email',
     emailPlaceholder: 'Set login',

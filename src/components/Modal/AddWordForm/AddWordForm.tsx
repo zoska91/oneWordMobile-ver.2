@@ -1,7 +1,6 @@
 import { FC } from 'react';
 import { FormProvider } from 'react-hook-form';
 
-// import SelectField from '../../../components/atoms/Inputs/SelectInput';
 import Button from '../../atoms/Button';
 import { TitleText } from '../../atoms/Title';
 import useAddWordForm from './useAddWordForm';
@@ -13,8 +12,7 @@ import * as S from './AddWordForm.style';
 interface AddWordFormProps {}
 
 const AddWordForm: FC<AddWordFormProps> = () => {
-  const { navigation, addLangOptions, methods, onSubmit, handleSubmit, onError, t } =
-    useAddWordForm();
+  const { navigation, addLangOptions, methods, onSubmit, handleSubmit, t } = useAddWordForm();
 
   return (
     <S.Wrapper>
@@ -22,13 +20,13 @@ const AddWordForm: FC<AddWordFormProps> = () => {
         <TitleText> {t('form.addWordTitle')}</TitleText>
 
         <S.InputsContainer>
-          <InputField name='basicWord' small/>
-          <InputField name='transWord' small/>
-          <SelectField name='addLang' options={addLangOptions} small/>
+          <InputField name='basicWord' small required />
+          <InputField name='transWord' small required />
+          <SelectField name='addLang' options={addLangOptions} small />
         </S.InputsContainer>
 
         <S.ButtonContainer>
-          <Button secondaryColor small onPress={handleSubmit(onSubmit, onError)}>
+          <Button secondaryColor small onPress={handleSubmit(onSubmit)}>
             {t('buttons.submit')}
           </Button>
           <Button small onPress={() => navigation.goBack()}>

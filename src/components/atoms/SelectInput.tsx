@@ -10,6 +10,7 @@ import { AntDesign } from '@expo/vector-icons';
 import Button from './Button';
 import Popup from '../Popup/Popup';
 import { generateBoxShadowStyle } from '../../helpers/generateBoxShadowStyle';
+import ErrorText from './ErrorText';
 
 export const TouchableOpacity = styled.TouchableOpacity`
   margin-bottom: 50px;
@@ -65,7 +66,7 @@ const SelectField: FC<SelectFieldProps> = ({
         </S.SelectValue>
       </TouchableOpacity>
 
-      {/* {errors?.[name] && <S.ErrorText>{errors?.[name]?.message}</S.ErrorText>} */}
+      {errors?.[name] && <ErrorText>{errors?.[name]?.message as string}</ErrorText>}
 
       <Popup modalVisible={modalVisible} setModalVisible={setModalVisible}>
         <S.CloseButton onPress={() => setModalVisible(false)}>

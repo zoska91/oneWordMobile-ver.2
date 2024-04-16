@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import * as S from './Inputs.css';
 import { generateBoxShadowStyle } from '../../helpers/generateBoxShadowStyle';
 import { Platform } from 'react-native';
+import ErrorText from './ErrorText';
 
 interface InputFieldProps {
   name: string;
@@ -65,7 +66,7 @@ const InputField: FC<InputFieldProps> = ({
         }}
       />
 
-      {/* {errors?.[name] && <S.ErrorText>{errors?.[name]?.message}</S.ErrorText>} */}
+      {errors?.[name] && <ErrorText>{errors?.[name]?.message as string}</ErrorText>}
     </S.FieldContainer>
   );
 };
