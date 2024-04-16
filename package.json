@@ -47,7 +47,8 @@
     "react-native-toast-message": "^2.1.6",
     "react-native-vector-icons": "^10.0.3",
     "styled-component": "^2.8.0",
-    "styled-components": "^6.1.0"
+    "styled-components": "^6.1.0",
+    "expo-updates": "~0.18.19"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
