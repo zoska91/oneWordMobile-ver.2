@@ -8,16 +8,20 @@ import Button from '../../atoms/Button';
 import Tip from '../../atoms/Tip';
 import { useGlobalProvider } from '../../../layout/GlobalProvider';
 import { TitleText } from '../../atoms/Title';
+import { ITodayWord } from '../../../types/forms';
 
 interface GuessWordTabProps {
   isLearnButtonVisible: boolean;
   setIsLearnButtonVisible: React.Dispatch<React.SetStateAction<boolean>>;
+  todayWord: ITodayWord;
 }
 
-const GuessWordTab: FC<GuessWordTabProps> = ({ setIsLearnButtonVisible, isLearnButtonVisible }) => {
+const GuessWordTab: FC<GuessWordTabProps> = ({
+  setIsLearnButtonVisible,
+  isLearnButtonVisible,
+  todayWord,
+}) => {
   const { t } = useTranslation();
-  const { todayWord } = useGlobalProvider();
-  if (!todayWord) return <></>;
 
   const { transWord } = todayWord;
 
@@ -32,7 +36,7 @@ const GuessWordTab: FC<GuessWordTabProps> = ({ setIsLearnButtonVisible, isLearnB
 
   return (
     <>
-      <TitleText small>Pies</TitleText>
+      <TitleText small>{todayWord.basicWord}</TitleText>
       <GuessingInput
         status={isAnswerCorrect}
         placeholder='Answer...'
@@ -57,7 +61,7 @@ const GuessWordTab: FC<GuessWordTabProps> = ({ setIsLearnButtonVisible, isLearnB
 
       {!isLearnButtonVisible && (
         <Button dark onPress={onCheck}>
-          Check
+          {t('buttons.check')}
         </Button>
       )}
     </>

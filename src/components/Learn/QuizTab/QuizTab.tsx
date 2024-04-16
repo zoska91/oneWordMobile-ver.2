@@ -1,21 +1,26 @@
 import { FC, useState } from 'react';
 import { TitleText } from '../../atoms/Title';
 import { useTranslation } from 'react-i18next';
+import { FlatList } from 'react-native';
+
+import Button from '../../atoms/Button';
+import Tip from '../../atoms/Tip';
+import { ITodayWord } from '../../../types/forms';
 
 import * as S from '../Learn.css';
-import Button from '../../atoms/Button';
-import { FlatList } from 'react-native';
-import Tip from '../../atoms/Tip';
-import { useGlobalProvider } from '../../../layout/GlobalProvider';
 
 interface QuizTabProps {
   isLearnButtonVisible: boolean;
   setIsLearnButtonVisible: React.Dispatch<React.SetStateAction<boolean>>;
+  todayWord: ITodayWord;
 }
 
-const QuizTab: FC<QuizTabProps> = ({ isLearnButtonVisible, setIsLearnButtonVisible }) => {
+const QuizTab: FC<QuizTabProps> = ({
+  isLearnButtonVisible,
+  setIsLearnButtonVisible,
+  todayWord,
+}) => {
   const { t } = useTranslation();
-  const { todayWord } = useGlobalProvider();
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [isAnswerCorrect, setIsAnswerCorrect] = useState<boolean | null>(null);
 
@@ -33,24 +38,25 @@ const QuizTab: FC<QuizTabProps> = ({ isLearnButtonVisible, setIsLearnButtonVisib
 
   const checkAnswer = () => {
     setIsLearnButtonVisible(true);
+    const isCorrect = selectedAnswer === todayWord._id;
     // CHECK TODO
-    setIsAnswerCorrect(false);
+    setIsAnswerCorrect(isCorrect);
   };
 
   return (
     <>
-      <TitleText small>{todayWord?.basicWord}</TitleText>
+      <TitleText small>{todayWord.basicWord}</TitleText>
 
       <FlatList
         data={todayWord?.shuffleWords}
         renderItem={renderAnswers}
         keyExtractor={(item) => item.id}
-        extraData={todayWord?.shuffleWords}
+        extraData={todayWord.shuffleWords}
       />
 
       {!isLearnButtonVisible && (
         <Button dark onPress={checkAnswer}>
-          Check
+          {t('buttons.check')}
         </Button>
       )}
 

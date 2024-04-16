@@ -1,19 +1,23 @@
 import { FC, useState } from 'react';
-import { TitleText } from '../../atoms/Title';
+import { useTranslation } from 'react-i18next';
 
+import { TitleText } from '../../atoms/Title';
 import Button from '../../atoms/Button';
-import { useGlobalProvider } from '../../../layout/GlobalProvider';
+
+import { ITodayWord } from '../../../types/forms';
 
 interface AppearWordTabProps {
   isLearnButtonVisible: boolean;
   setIsLearnButtonVisible: React.Dispatch<React.SetStateAction<boolean>>;
+  todayWord: ITodayWord;
 }
 
 const AppearWordTab: FC<AppearWordTabProps> = ({
   isLearnButtonVisible,
   setIsLearnButtonVisible,
+  todayWord,
 }) => {
-  const { todayWord } = useGlobalProvider();
+  const { t } = useTranslation();
   const [isTransWordVisible, setIsTransWordVisible] = useState(false);
 
   const showTransWord = () => {
@@ -23,12 +27,12 @@ const AppearWordTab: FC<AppearWordTabProps> = ({
 
   return (
     <>
-      <TitleText small>{todayWord?.basicWord}</TitleText>
-      {isTransWordVisible && <TitleText>{todayWord?.transWord}</TitleText>}
+      <TitleText small>{todayWord.basicWord}</TitleText>
+      {isTransWordVisible && <TitleText>{todayWord.transWord}</TitleText>}
 
       {!isLearnButtonVisible && (
         <Button dark onPress={showTransWord}>
-          Show translation
+          {t('buttons.showTrans')}
         </Button>
       )}
     </>

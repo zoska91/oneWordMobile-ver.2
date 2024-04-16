@@ -24,6 +24,8 @@ export const en = {
     submit: 'Submit',
     withGoogle: `Let's go with Google`,
     learned: `Learned`,
+    check: 'Check',
+    showTrans: 'Show translation',
   },
 
   form: {
@@ -131,4 +133,7 @@ export const en = {
   itsTime: `It's time!`,
   searchWordInput: 'search word',
   infoLearnedButton: `If you click "Learn" you won't receive this word anymore`,
+  userScreen: {
+    todayWord: 'Today Word',
+  },
 };
