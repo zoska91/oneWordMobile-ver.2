@@ -30,7 +30,7 @@ const useWordsList = () => {
 
     try {
       const resp = await api.get(apiUrls.getAllWords);
-      
+
       setWords(_.cloneDeep(resp.words));
       setBasicWords(_.cloneDeep(resp.words));
     } catch (e) {
@@ -57,8 +57,6 @@ const useWordsList = () => {
     setIsLoading(true);
     try {
       const resp = await api.put(apiUrls.updateWord(wordId), body);
-      console.log('00000000');
-      console.log({ resp });
 
       if (resp._id === wordId) {
         await getAllWords();
@@ -73,8 +71,6 @@ const useWordsList = () => {
   };
 
   const search = (value: string) => {
-    console.log({ value });
-
     if (basicWords?.length === 0) return;
     const uppercaseValue = value.toUpperCase();
 
@@ -83,7 +79,6 @@ const useWordsList = () => {
         el.basicWord.toUpperCase().includes(uppercaseValue) ||
         el.transWord.toUpperCase().includes(uppercaseValue)
     );
-    console.log(newWords?.length);
     setWords(newWords);
   };
 

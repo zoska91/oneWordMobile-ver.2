@@ -1,21 +1,23 @@
 import { FC, useEffect } from 'react';
 import { TitleText } from '../../atoms/Title';
 
-import * as S from '../Learn.css';
+import { useGlobalProvider } from '../../../layout/GlobalProvider';
 
 interface ShowWordTabProps {
   setIsLearnButtonVisible: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const ShowWordTab: FC<ShowWordTabProps> = ({ setIsLearnButtonVisible }) => {
+  const { todayWord } = useGlobalProvider();
+
   useEffect(() => {
     setIsLearnButtonVisible(true);
   }, []);
 
   return (
     <>
-      <TitleText small>Pies</TitleText>
-      <TitleText>Dog</TitleText>
+      <TitleText small>{todayWord?.basicWord}</TitleText>
+      <TitleText>{todayWord?.transWord}</TitleText>
     </>
   );
 };

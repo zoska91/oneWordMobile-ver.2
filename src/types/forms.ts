@@ -38,9 +38,10 @@ export interface ITodayWord {
   _id?: string;
   addLang: string;
   basicWord: string;
-  createdDate: any;
+  createdDate: string;
   status: number;
   transWord: string;
   userId: string;
   wordId?: string;
+  shuffleWords?: { id: string; text: string }[];
 }

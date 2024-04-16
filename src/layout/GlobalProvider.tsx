@@ -12,21 +12,27 @@ import { useNavigation } from '@react-navigation/native';
 
 import { Api, apiUrls } from '../api';
 import { ILearnType } from '../types/learn';
+import { ITodayWord } from '../types/forms';
+import { checkIsBreakDay, getCurrentLearnType } from '../helpers/useGetCurretnLearnType';
 
-interface EventViewContextValue {
+interface GLobalProviderContextValue {
   isLoading: boolean;
   setIsLoading: Dispatch<SetStateAction<boolean>>;
   isLogin: boolean;
   setIsLogin: Dispatch<SetStateAction<boolean>>;
-  todayWord: any;
-  learnType: ILearnType;
+  todayWord: ITodayWord | null;
+  currentLearnType: ILearnType;
+  setIsBreakDay: Dispatch<SetStateAction<boolean>>;
+  isBreakDay: boolean;
 }
 
 interface IProps {
   children: ReactNode;
 }
 
-const EventViewContext = createContext<EventViewContextValue>({} as EventViewContextValue);
+const EventViewContext = createContext<GLobalProviderContextValue>(
+  {} as GLobalProviderContextValue
+);
 
 export const GlobalProvider: FC<IProps> = ({ children }) => {
   const api = new Api();
@@ -34,8 +40,9 @@ export const GlobalProvider: FC<IProps> = ({ children }) => {
 
   const [isLogin, setIsLogin] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [todayWord, setTodayWord] = useState({});
-  const [learnType, setLearnType] = useState(ILearnType.SHOW_WORD);
+  const [todayWord, setTodayWord] = useState<ITodayWord | null>(null);
+  const [currentLearnType, setCurrentLearnType] = useState(ILearnType.SHOW_WORD);
+  const [isBreakDay, setIsBreakDay] = useState(false);
 
   const getUser = async () => {
     try {
@@ -48,7 +55,7 @@ export const GlobalProvider: FC<IProps> = ({ children }) => {
       } else {
         setIsLogin(true);
         navigation.navigate('User');
-        // await getTodayWord();
+        await getTodayWord();
       }
     } catch (e) {
       console.log(2, e);
@@ -58,9 +65,16 @@ export const GlobalProvider: FC<IProps> = ({ children }) => {
   };
 
   const getTodayWord = async () => {
-    const resp = await api.get(apiUrls.getTodayWord);
-    console.log({ resp });
-    // setTodayWord(resp);
+    const respSettings = await api.get(apiUrls.getUserSettings);
+
+    const isBreakDay = checkIsBreakDay(respSettings?.breakDay);
+    if (isBreakDay) return setIsBreakDay(true);
+
+    const learnType = getCurrentLearnType(respSettings.notifications);
+    if (learnType) setCurrentLearnType(learnType);
+
+    const respWord = await api.get(apiUrls.getTodayWord);
+    setTodayWord(respWord);
   };
 
   useEffect(() => {
@@ -73,13 +87,15 @@ export const GlobalProvider: FC<IProps> = ({ children }) => {
     setIsLoading,
     setIsLogin,
     todayWord,
-    learnType,
+    currentLearnType,
+    isBreakDay,
+    setIsBreakDay,
   };
 
   return <EventViewContext.Provider value={value}>{children}</EventViewContext.Provider>;
 };
 
-export const useGlobalProvider = (): EventViewContextValue => {
+export const useGlobalProvider = (): GLobalProviderContextValue => {
   const context = useContext(EventViewContext);
 
   if (!context) {

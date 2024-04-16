@@ -3,18 +3,18 @@ import { useTranslation } from 'react-i18next';
 import { FormProvider } from 'react-hook-form';
 import { AntDesign } from '@expo/vector-icons';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { View } from 'react-native';
 
 import Button from '../../atoms/Button';
 import usePreferencesForm from './usePreferencesForm';
-
-import * as S from './PreferencesForm.css';
-import { View } from 'react-native';
 import useGenerateOptionsFields from '../../../helpers/useGenereteOptionsFields';
 import { TitleText } from '../../atoms/Title';
 import TextWrapper from '../../atoms/TextWrapper';
 import InputField from '../../atoms/InputText';
 import SelectField from '../../atoms/SelectInput';
 import CheckboxField from '../../atoms/Checkbox';
+
+import * as S from './PreferencesForm.css';
 
 interface PreferencesFormProps {}
 
@@ -34,7 +34,6 @@ const PreferencesForm: FC<PreferencesFormProps> = () => {
     methods,
     remove,
   } = usePreferencesForm();
-  console.log({ fields });
 
   return (
     <KeyboardAwareScrollView>
@@ -84,7 +83,13 @@ const PreferencesForm: FC<PreferencesFormProps> = () => {
                     noLabel
                     placeholderText={t('form.notificationSelectPlaceholder')}
                   />
-                  <InputField name={`notifications.${index}.time`} required type='time' noLabel />
+                  <InputField
+                    placeholder={t('form.notificationHourPlaceholder')}
+                    name={`notifications.${index}.time`}
+                    required
+                    type='time'
+                    noLabel
+                  />
                 </>
               ))}
               {/* problem with scrolling on iOS */}

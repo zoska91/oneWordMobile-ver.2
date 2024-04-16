@@ -6,6 +6,7 @@ import * as S from '../Learn.css';
 import Button from '../../atoms/Button';
 import { FlatList } from 'react-native';
 import Tip from '../../atoms/Tip';
+import { useGlobalProvider } from '../../../layout/GlobalProvider';
 
 interface QuizTabProps {
   isLearnButtonVisible: boolean;
@@ -14,23 +15,18 @@ interface QuizTabProps {
 
 const QuizTab: FC<QuizTabProps> = ({ isLearnButtonVisible, setIsLearnButtonVisible }) => {
   const { t } = useTranslation();
+  const { todayWord } = useGlobalProvider();
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [isAnswerCorrect, setIsAnswerCorrect] = useState<boolean | null>(null);
 
-  const words = [
-    { id: 'a', trans: 'Dog', basic: 'Pies' },
-    { id: 'b', trans: 'Dog', basic: 'Pies' },
-    { id: 'c', trans: 'Dog', basic: 'Pies' },
-  ];
-
-  const renderAnswers = ({ item }: { item: { id: string; trans: string; basic: string } }) => (
+  const renderAnswers = ({ item }: { item: { id: string; text: string } }) => (
     <S.Answer key={item.id} isSelected={selectedAnswer === item.id}>
       <S.StyledButton
         secondaryColor={selectedAnswer === item.id}
         disabled={isAnswerCorrect !== null}
         onPress={() => setSelectedAnswer(item.id)}
       >
-        {item.trans}
+        {item.text}
       </S.StyledButton>
     </S.Answer>
   );
@@ -43,13 +39,13 @@ const QuizTab: FC<QuizTabProps> = ({ isLearnButtonVisible, setIsLearnButtonVisib
 
   return (
     <>
-      <TitleText small>Pies</TitleText>
+      <TitleText small>{todayWord?.basicWord}</TitleText>
 
       <FlatList
-        data={words}
+        data={todayWord?.shuffleWords}
         renderItem={renderAnswers}
         keyExtractor={(item) => item.id}
-        extraData={words}
+        extraData={todayWord?.shuffleWords}
       />
 
       {!isLearnButtonVisible && (

@@ -1,8 +1,8 @@
 import { FC, useState } from 'react';
 import { TitleText } from '../../atoms/Title';
 
-import * as S from '../Learn.css';
 import Button from '../../atoms/Button';
+import { useGlobalProvider } from '../../../layout/GlobalProvider';
 
 interface AppearWordTabProps {
   isLearnButtonVisible: boolean;
@@ -13,17 +13,18 @@ const AppearWordTab: FC<AppearWordTabProps> = ({
   isLearnButtonVisible,
   setIsLearnButtonVisible,
 }) => {
+  const { todayWord } = useGlobalProvider();
   const [isTransWordVisible, setIsTransWordVisible] = useState(false);
 
   const showTransWord = () => {
     setIsTransWordVisible(true);
     setIsLearnButtonVisible(true);
-  }
+  };
 
   return (
     <>
-      <TitleText small>Pies</TitleText>
-      {isTransWordVisible && <TitleText>Dog</TitleText>}
+      <TitleText small>{todayWord?.basicWord}</TitleText>
+      {isTransWordVisible && <TitleText>{todayWord?.transWord}</TitleText>}
 
       {!isLearnButtonVisible && (
         <Button dark onPress={showTransWord}>
