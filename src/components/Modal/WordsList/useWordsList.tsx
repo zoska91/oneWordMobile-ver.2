@@ -36,7 +36,7 @@ const useWordsList = () => {
       setWords(_.cloneDeep(sortedWords));
       setBasicWords(_.cloneDeep(sortedWords));
     } catch (e) {
-      Toast.show({ type: 'success', text2: t('api.error') });
+      Toast.show({ type: 'error', text2: t('api.error') });
     } finally {
       setIsLoading(false);
     }
@@ -49,7 +49,7 @@ const useWordsList = () => {
       await api.delete(apiUrls.deleteWord(wordId));
       await getAllWords();
     } catch (e) {
-      Toast.show({ type: 'success', text2: t('api.error') });
+      Toast.show({ type: 'error', text2: t('api.error') });
     } finally {
       setIsLoading(false);
     }
@@ -66,7 +66,7 @@ const useWordsList = () => {
         return 'success';
       }
     } catch (e) {
-      Toast.show({ type: 'success', text2: t('api.error') });
+      Toast.show({ type: 'error', text2: t('api.error') });
     } finally {
       setIsLoading(false);
     }

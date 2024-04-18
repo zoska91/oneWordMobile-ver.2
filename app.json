@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "oneWordMobile",
-    "scheme": "oneWordMobile",
+    "scheme": "onewordmobile",
     "slug": "oneWordMobile",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -12,11 +12,10 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.zofia.janas.oneWordMobile"
     },
     "android": {
       "adaptiveIcon": {

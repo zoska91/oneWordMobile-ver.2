@@ -72,10 +72,10 @@ const usePreferencesForm = () => {
         const resp = await api.put(apiUrls.updateUserSettings, data);
         if (resp.message === 'Update success')
           Toast.show({ type: 'success', text2: 'Update success' });
-        else Toast.show({ type: 'success', text2: t('api.error') });
+        else Toast.show({ type: 'error', text2: t('api.error') });
       }
     } catch (e) {
-      Toast.show({ type: 'success', text2: t('api.error') });
+      Toast.show({ type: 'error', text2: t('api.error') });
     } finally {
       setIsLoading(false);
     }
