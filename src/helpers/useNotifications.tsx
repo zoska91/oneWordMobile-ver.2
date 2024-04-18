@@ -41,6 +41,7 @@ const useNotifications = () => {
         content: {
           title: t('itsTime'),
           body: t('takeAMoment'),
+          sound: 'default',
           data: {
             id: 'learn',
           },
