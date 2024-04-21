@@ -5,6 +5,7 @@ import { TitleText } from '../../atoms/Title';
 import Button from '../../atoms/Button';
 
 import { ITodayWord } from '../../../types/forms';
+import VisibleWord from '../../atoms/VisibleWord';
 
 interface AppearWordTabProps {
   isLearnButtonVisible: boolean;
@@ -28,7 +29,7 @@ const AppearWordTab: FC<AppearWordTabProps> = ({
   return (
     <>
       <TitleText small>{todayWord.basicWord}</TitleText>
-      {isTransWordVisible && <TitleText>{todayWord.transWord}</TitleText>}
+      {isTransWordVisible && <VisibleWord>{todayWord.transWord}</VisibleWord>}
 
       {!isLearnButtonVisible && (
         <Button dark onPress={showTransWord}>

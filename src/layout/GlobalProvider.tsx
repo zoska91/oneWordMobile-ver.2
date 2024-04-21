@@ -7,8 +7,9 @@ import {
   ReactNode,
   Dispatch,
   SetStateAction,
+  useRef,
 } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 
 import { Api, apiUrls } from '../api';
 import { ILearnType } from '../types/learn';
@@ -16,6 +17,7 @@ import { ITodayWord } from '../types/forms';
 import { checkIsBreakDay, getCurrentLearnType } from '../helpers/useGetCurretnLearnType';
 import Toast from 'react-native-toast-message';
 import { useTranslation } from 'react-i18next';
+import { AppState } from 'react-native';
 
 interface GLobalProviderContextValue {
   isLoading: boolean;
@@ -40,6 +42,8 @@ export const GlobalProvider: FC<IProps> = ({ children }) => {
   const api = new Api();
   const { t } = useTranslation();
   const navigation = useNavigation();
+
+  const appState = useRef(AppState.currentState);
 
   const [isLogin, setIsLogin] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -81,7 +85,22 @@ export const GlobalProvider: FC<IProps> = ({ children }) => {
   };
 
   useEffect(() => {
+    console.log('useEffect');
     getUser();
+  }, [isLogin]);
+
+  useEffect(() => {
+    const subscription = AppState.addEventListener('change', (nextAppState) => {
+      if (appState.current !== nextAppState && nextAppState === 'active') {
+        getUser();
+      }
+
+      appState.current = nextAppState;
+    });
+
+    return () => {
+      subscription.remove();
+    };
   }, []);
 
   const value = {

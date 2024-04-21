@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import Toast from 'react-native-toast-message';
+import * as Notification from 'expo-notifications';
 
 const useMenuBottom = () => {
   const { t } = useTranslation();
@@ -20,6 +21,7 @@ const useMenuBottom = () => {
     await AsyncStorage.removeItem('token');
     navigation.navigate('Home');
     Toast.show({ type: 'success', text2: 'Log out successful' });
+    Notification.cancelAllScheduledNotificationsAsync();
   };
 
   const actions = [

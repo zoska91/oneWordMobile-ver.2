@@ -15,7 +15,6 @@ const usePreferencesForm = () => {
 
   const { setIsLoading, isLoading } = useGlobalProvider();
   const triggerNotification = useNotifications();
-  const navigation = useNavigation();
 
   const [defaultValues, setDefaultValues] = useState<IInputsPreferences | null>(null);
 

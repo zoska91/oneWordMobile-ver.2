@@ -6,10 +6,12 @@ import useMenuBottom from './useMenuBottom';
 import * as S from './UserScreen.css';
 import { LearnWrapper } from '../../components/Learn/';
 import { useTranslation } from 'react-i18next';
+import { useGlobalProvider } from '../../layout/GlobalProvider';
 
 const UserScreen: FC = () => {
   const { t } = useTranslation();
   const { actions } = useMenuBottom();
+  const { isLoading } = useGlobalProvider();
 
   const [isOpenMenu, setIsOpenMenu] = useState(false);
 
@@ -17,7 +19,7 @@ const UserScreen: FC = () => {
     <S.Wrapper>
       <Text>{t('userScreen.todayWord')}</Text>
 
-      <LearnWrapper />
+      {!isLoading && <LearnWrapper />}
 
       <SpeedDial
         color='#2e2757'
