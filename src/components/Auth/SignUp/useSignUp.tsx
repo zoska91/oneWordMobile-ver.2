@@ -13,17 +13,18 @@ const useSignUpForm = () => {
   const navigation = useNavigation();
 
   const api = new Api();
-  const { setIsLoading, setIsLogin } = useGlobalProvider();
+  const { setIsLoading, setIsLogin, getTodayWord } = useGlobalProvider();
 
   const methods = useForm<IAuth>();
   const { handleSubmit } = methods;
 
-  const onSubmit: SubmitHandler<IAuth> = async ({ email, password }) => {
+  const onSubmit: SubmitHandler<IAuth> = async ({ username, password }) => {
     try {
       setIsLoading(true);
-      const respSignUp = await api.post(apiUrls.signup, { username: email, password });
+      const respSignUp = await api.post(apiUrls.signup, { username, password });
+      console.log(6666, { respSignUp });
       if (respSignUp.message === 'success') {
-        const respLogin = await api.post(apiUrls.login, { username: email, password });
+        const respLogin = await api.post(apiUrls.login, { username, password });
 
         await AsyncStorage.setItem('token', respLogin.token);
 
@@ -31,9 +32,14 @@ const useSignUpForm = () => {
           Toast.show({ type: 'success', text2: 'success' });
           navigation.navigate('User');
           setIsLogin(true);
+          getTodayWord();
         } else Toast.show({ type: 'error', text2: respLogin.message });
       } else Toast.show({ type: 'error', text2: respSignUp.message });
     } catch (e) {
+      if (e instanceof Error && e.message === '400') {
+        Toast.show({ type: 'error', text2: t('api.existsMail') });
+        return;
+      }
       Toast.show({ type: 'error', text2: t('api.error') });
     } finally {
       setIsLoading(false);

@@ -10,7 +10,6 @@ import usePreferencesForm from './usePreferencesForm';
 import useGenerateOptionsFields from '../../../helpers/useGenereteOptionsFields';
 import { TitleText } from '../../atoms/Title';
 import TextWrapper from '../../atoms/TextWrapper';
-import InputField from '../../atoms/InputText';
 import SelectField from '../../atoms/SelectInput';
 import CheckboxField from '../../atoms/Checkbox';
 
@@ -61,32 +60,34 @@ const PreferencesForm: FC<PreferencesFormProps> = () => {
                   name='pluscircle'
                   size={24}
                   color='#2e2757'
-                  onPress={() => append({ type: 1, time: '00:00' })}
+                  onPress={() => append({ type: 1, time: '00:00', id: fields.length + 1 * 2 })}
                 />
               </S.FormLabel>
 
               <S.Desc>{t('form.itIsTheClue')}</S.Desc>
 
-              {fields.map((item, index) => (
-                <>
-                  <S.FormLabel>
-                    <TextWrapper>{index + 1}. notification</TextWrapper>
-                    <AntDesign
-                      name='minuscircle'
-                      size={24}
-                      color='#2e2757'
-                      onPress={() => remove(index)}
+              {fields.map((item, index) => {
+                return (
+                  <View key={item.id}>
+                    <S.FormLabel>
+                      <TextWrapper>{index + 1}. notification</TextWrapper>
+                      <AntDesign
+                        name='minuscircle'
+                        size={24}
+                        color='#2e2757'
+                        onPress={() => remove(item.id)}
+                      />
+                    </S.FormLabel>
+                    <SelectField
+                      name={`notifications.${index}.type`}
+                      options={learnTypesOptions}
+                      noLabel
+                      placeholderText={t('form.notificationSelectPlaceholder')}
                     />
-                  </S.FormLabel>
-                  <SelectField
-                    name={`notifications.${index}.type`}
-                    options={learnTypesOptions}
-                    noLabel
-                    placeholderText={t('form.notificationSelectPlaceholder')}
-                  />
-                  <TimePicker name={`notifications.${index}.time`} />
-                </>
-              ))}
+                    <TimePicker name={`notifications.${index}.time`} />
+                  </View>
+                );
+              })}
               {/* problem with scrolling on iOS */}
               <S.Placeholder />
             </S.Wrapper>

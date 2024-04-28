@@ -13,7 +13,7 @@ const useAddWordForm = () => {
   const { t } = useTranslation();
   const navigation = useNavigation();
 
-  const { setIsLoading } = useGlobalProvider();
+  const { setIsLoading, todayWord, getTodayWord } = useGlobalProvider();
 
   const { addLangOptions } = useGenerateOptionsFields();
 
@@ -31,6 +31,9 @@ const useAddWordForm = () => {
 
       if (resp.message === 'Success') {
         Toast.show({ type: 'success', text2: t(`wordCreated`) });
+        // when there is no words then after adding app still showing sad icon (means no words)
+        if (!todayWord) await getTodayWord();
+
         reset();
       } else {
         Toast.show({ type: 'error', text2: t('api.error') });

@@ -7,15 +7,16 @@ export interface IInputsAddWord {
 export interface ISingleNotification {
   type: number;
   time: string;
+  id?: number;
 }
 
 export interface IAuth {
-  email: string;
+  username: string;
   password: string;
 }
 
 export interface IPasswordReminder {
-  email: string;
+  username: string;
 }
 
 export interface IInputsPreferences {

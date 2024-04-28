@@ -11,7 +11,7 @@ import {
 } from 'react';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 
-import { Api, apiUrls } from '../api';
+import { Api, CustomError, apiUrls } from '../api';
 import { ILearnType } from '../types/learn';
 import { ITodayWord } from '../types/forms';
 import { checkIsBreakDay, getCurrentLearnType } from '../helpers/useGetCurretnLearnType';
@@ -28,6 +28,7 @@ interface GLobalProviderContextValue {
   currentLearnType: ILearnType;
   setIsBreakDay: Dispatch<SetStateAction<boolean>>;
   isBreakDay: boolean;
+  getTodayWord: () => Promise<void>;
 }
 
 interface IProps {
@@ -55,7 +56,6 @@ export const GlobalProvider: FC<IProps> = ({ children }) => {
     try {
       setIsLoading(true);
       const resp = await api.get(apiUrls.user);
-
       if (resp.message === 'no logged user') {
         setIsLogin(false);
         return navigation.navigate('Home');
@@ -65,29 +65,42 @@ export const GlobalProvider: FC<IProps> = ({ children }) => {
         await getTodayWord();
       }
     } catch (e) {
-      Toast.show({ type: 'error', text2: t('api.error') });
+      if (e instanceof Error && e.message === '404') return;
     } finally {
       setIsLoading(false);
     }
   };
 
   const getTodayWord = async () => {
-    const respSettings = await api.get(apiUrls.getUserSettings);
+    try {
+      const respSettings = await api.get(apiUrls.getUserSettings);
 
-    const isBreakDay = checkIsBreakDay(respSettings?.breakDay);
-    if (isBreakDay) return setIsBreakDay(true);
+      const isBreakDay = checkIsBreakDay(respSettings?.breakDay);
+      if (isBreakDay) return setIsBreakDay(true);
 
-    const learnType = getCurrentLearnType(respSettings.notifications);
-    if (learnType) setCurrentLearnType(learnType);
+      const learnType = getCurrentLearnType(respSettings.notifications);
+      if (learnType) setCurrentLearnType(learnType);
 
-    const respWord = await api.get(apiUrls.getTodayWord);
-    setTodayWord(respWord);
+      const respWord = await api.get(apiUrls.getTodayWord);
+      console.log(64, { respWord });
+
+      setTodayWord(respWord);
+    } catch (e) {
+      const error = e as CustomError;
+      if (error.status === 404 && error.url === 'words/today-word') {
+        Toast.show({ type: 'info', text2: t('api.noWords') });
+        setTodayWord(null);
+        return;
+      }
+
+      Toast.show({ type: 'error', text2: t('api.error') });
+    }
   };
 
   useEffect(() => {
-    console.log('useEffect');
     getUser();
-  }, [isLogin]);
+  }, []);
+  console.log(999999, todayWord);
 
   useEffect(() => {
     const subscription = AppState.addEventListener('change', (nextAppState) => {
@@ -112,6 +125,7 @@ export const GlobalProvider: FC<IProps> = ({ children }) => {
     currentLearnType,
     isBreakDay,
     setIsBreakDay,
+    getTodayWord,
   };
 
   return <EventViewContext.Provider value={value}>{children}</EventViewContext.Provider>;

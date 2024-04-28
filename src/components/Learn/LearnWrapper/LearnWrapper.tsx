@@ -1,8 +1,7 @@
-import { FC, useEffect, useState } from 'react';
-import { Dimensions } from 'react-native';
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Feather } from '@expo/vector-icons';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Entypo } from '@expo/vector-icons';
 
 import { TitleText, TitleWrapper } from '../../atoms/Title';
 import Layout from '../../../layout';
@@ -14,39 +13,24 @@ import QuizTab from '../QuizTab';
 import AppearWordTab from '../AppearWordTab';
 import GuessWordTab from '../GuessWordTab';
 
-import { useGlobalProvider } from '../../../layout/GlobalProvider';
-
 import { ILearnType } from '../../../types/learn';
 import { ITodayWord } from '../../../types/forms';
 
 import * as S from '../Learn.css';
+import { useLearnWrapper } from './useLearnWrapper';
 
-const IS_INFO_LEARNED_BUTTON_KEY = 'isInfoLearnedButtonVisible';
-
-interface LearnWrapperProps {}
-
-const LearnWrapper: FC<LearnWrapperProps> = () => {
+const LearnWrapper: FC = () => {
   const { t } = useTranslation();
-  const { currentLearnType, todayWord } = useGlobalProvider();
-
-  const windowHeight = Dimensions.get('window').height;
-
-  const [isInfoVisible, setIsInfoVisible] = useState(true);
-  const [isLearnButtonVisible, setIsLearnButtonVisible] = useState(false);
-
-  const getIsVisibleLearnedButtonStatus = async () => {
-    const isVisible = await AsyncStorage.getItem('IsInfoLearnedButtonVisible');
-    if (isVisible) setIsInfoVisible(true);
-  };
-
-  const setIsVisibleLearnedButtonStatus = async () => {
-    await AsyncStorage.setItem(IS_INFO_LEARNED_BUTTON_KEY, 'hidden');
-    setIsInfoVisible(false);
-  };
-
-  useEffect(() => {
-    getIsVisibleLearnedButtonStatus();
-  }, []);
+  const {
+    setIsLearnButtonVisible,
+    isLearnButtonVisible,
+    todayWord,
+    windowHeight,
+    currentLearnType,
+    isInfoVisible,
+    setIsVisibleLearnedButtonStatus,
+    handleLearnedButton,
+  } = useLearnWrapper();
 
   const props = {
     setIsLearnButtonVisible,
@@ -63,6 +47,7 @@ const LearnWrapper: FC<LearnWrapperProps> = () => {
       <S.Wrapper>
         <GlassContainer type='light'>
           <S.Content windowHeight={windowHeight}>
+            {!todayWord && <Entypo name='emoji-sad' size={150} color='#8c3a68' />}
             {todayWord && (
               <S.WordWrapper isLearnButtonVisible={isLearnButtonVisible}>
                 {currentLearnType === ILearnType.SHOW_WORD && <ShowWordTab {...props} />}
@@ -71,7 +56,7 @@ const LearnWrapper: FC<LearnWrapperProps> = () => {
                 {currentLearnType === ILearnType.GUESS_WORD && <GuessWordTab {...props} />}
               </S.WordWrapper>
             )}
-            {isLearnButtonVisible && (
+            {isLearnButtonVisible && todayWord && (
               <S.ButtonsWrapper>
                 {isInfoVisible && (
                   <Tip
@@ -83,6 +68,7 @@ const LearnWrapper: FC<LearnWrapperProps> = () => {
                 <Button
                   secondaryColor
                   icon={<Feather name='check-circle' size={20} color='white' />}
+                  onPress={handleLearnedButton}
                 >
                   {t('buttons.learned')}
                 </Button>

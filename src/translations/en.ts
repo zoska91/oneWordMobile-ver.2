@@ -78,8 +78,8 @@ export const en = {
     loginTitle: 'Log in',
     signUpTitle: 'Sign up',
 
-    emailLabel: 'Email',
-    emailPlaceholder: 'Set login',
+    usernameLabel: 'Email',
+    usernamePlaceholder: 'Set login',
     passwordLabel: 'Password',
     passwordPlaceholder: 'Set password',
 
@@ -115,6 +115,10 @@ export const en = {
     weakPassword: 'Password should be at least 6 characters',
     existsMail: 'This mail already exists',
     userNotFound: 'User not found',
+    youAreLoggedOut: 'You are logged out',
+    wrongEmailOrPass: 'Wrong email or password',
+    noWords: `You haven't added any words yet. Do it now!`,
+    wrongCsv: 'Something went wrong. Make sure your file has headlines: basicWord and transWord',
   },
   actionsBottomMenu: {
     addWord: 'add word',

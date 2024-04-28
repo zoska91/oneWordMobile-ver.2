@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
-import styled from 'styled-components/native';
+import { useEffect, useState } from 'react';
+// @ts-ignore
 import AnimatedLoader from 'react-native-animated-loader';
 
 const GlobalLoader = () => {

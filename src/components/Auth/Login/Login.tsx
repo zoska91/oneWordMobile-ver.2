@@ -39,7 +39,7 @@ const LoginForm: FC<LoginFormProps> = ({ toggleAuth, currentScale, currentOpacit
             <TitleText> {t('form.loginTitle')}</TitleText>
 
             <S.InputsContainer>
-              <InputText name='email' required />
+              <InputText name='username' required />
               <InputText name='password' required secureTextEntry />
             </S.InputsContainer>
 

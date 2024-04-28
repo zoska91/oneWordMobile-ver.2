@@ -8,6 +8,7 @@ import { useGlobalProvider } from '../../layout/GlobalProvider';
 
 const HomeScreen: FC = () => {
   const { isLoading } = useGlobalProvider();
+
   return (
     <S.Wrapper>
       <Layout>

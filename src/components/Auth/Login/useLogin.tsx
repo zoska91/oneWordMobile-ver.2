@@ -13,13 +13,13 @@ const useLogin = () => {
   const api = new Api();
   const { t } = useTranslation();
   const navigation = useNavigation();
-  const { setIsLoading, setIsLogin } = useGlobalProvider();
+  const { setIsLoading, setIsLogin, getTodayWord } = useGlobalProvider();
   const triggerNotification = useNotifications();
 
   const methods = useForm<IAuth>();
   const { handleSubmit } = methods;
 
-  const onSubmit: SubmitHandler<IAuth> = async ({ email, password }) => {
+  const onSubmit: SubmitHandler<IAuth> = async ({ username, password }) => {
     const setNotification = async () => {
       const respSettings: IInputsPreferences = await api.get(apiUrls.getUserSettings);
       const times = respSettings.notifications.map((el) => {
@@ -32,7 +32,8 @@ const useLogin = () => {
     try {
       setIsLoading(true);
 
-      const resp = await api.post(apiUrls.login, { username: email, password });
+      const resp = await api.post(apiUrls.login, { username, password });
+
       if (resp.message === 'Login Successful') {
         await AsyncStorage.setItem('token', resp.token);
         Toast.show({ type: 'success', text2: t('api.success') });
@@ -41,11 +42,16 @@ const useLogin = () => {
         setNotification();
 
         setIsLogin(true);
+        getTodayWord();
         return;
       } else {
         Toast.show({ type: 'error', text2: resp.message });
       }
     } catch (e) {
+      if (e instanceof Error && e.message === '404') {
+        Toast.show({ type: 'error', text2: t('api.wrongEmailOrPass') });
+        return;
+      }
       Toast.show({ type: 'error', text2: t('api.error') });
     } finally {
       setIsLoading(false);

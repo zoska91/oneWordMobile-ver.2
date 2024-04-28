@@ -13,6 +13,7 @@ const ShowWordTab: FC<ShowWordTabProps> = ({ setIsLearnButtonVisible, todayWord 
   useEffect(() => {
     setIsLearnButtonVisible(true);
   }, []);
+  console.log(8, todayWord.basicWord);
 
   return (
     <>

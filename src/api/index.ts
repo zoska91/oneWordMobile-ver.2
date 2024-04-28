@@ -1,6 +1,12 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export const API_BASE_URL = `https://one-word-server.vercel.app/api`;
+export interface CustomError {
+  message: string;
+  status: number;
+  url: string;
+}
+
+export const API_BASE_URL = `https://onewordserv.bieda.it/api`;
 
 const headers = {
   Accept: 'application.json',
@@ -43,8 +49,15 @@ export class Api {
       headers,
     });
 
+    if (!resp?.ok) {
+      const error: CustomError = { message: 'Request failed', status: resp?.status, url };
+      console.log({ error });
+      throw error;
+    }
+
     const json = await resp.json();
-    return json;
+    console.log({ json });
+    return { ...json, status: resp.status };
   }
 
   async post<ResponseContent>(url: string, body: Record<string, unknown> | FormData = {}) {
@@ -64,8 +77,14 @@ export class Api {
       body: fetchBody,
     });
 
-    const json = await resp.json();
+    if (!resp?.ok) {
+      const error: CustomError = { message: 'Request failed', status: resp?.status, url };
+      console.log({ error });
+      throw error;
+    }
 
+    const json = await resp.json();
+    console.log({ json });
     return json;
   }
 
@@ -79,11 +98,15 @@ export class Api {
       headers,
       body: JSON.stringify(body),
     });
-    console.log(resp);
+
+    if (!resp?.ok) {
+      const error: CustomError = { message: 'Request failed', status: resp?.status, url };
+      console.log({ error });
+      throw error;
+    }
 
     const json = await resp.json();
     console.log({ json });
-
     return json;
   }
 

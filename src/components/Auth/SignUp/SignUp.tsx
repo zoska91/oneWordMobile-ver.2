@@ -35,7 +35,7 @@ const SignUp: FC<SignFormProps> = ({ toggleAuth, currentScale }) => {
             <TitleText light>{t('form.signUpTitle')}</TitleText>
 
             <S.InputsContainer>
-              <InputText name='email' required light />
+              <InputText name='username' required light />
               <InputText name='password' required light secureTextEntry />
             </S.InputsContainer>
 
