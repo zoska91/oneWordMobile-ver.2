@@ -21,7 +21,7 @@ interface PreferencesFormProps {}
 const PreferencesForm: FC<PreferencesFormProps> = () => {
   const { t } = useTranslation();
 
-  const { selectLanguageOptions, daysOptions, learnTypesOptions } = useGenerateOptionsFields();
+  const { langOptions, daysOptions, learnTypesOptions } = useGenerateOptionsFields();
 
   const {
     onSubmit,
@@ -42,7 +42,7 @@ const PreferencesForm: FC<PreferencesFormProps> = () => {
           <View style={{ paddingBottom: 100 }}>
             <S.Wrapper>
               <TitleText> {t('form.preferencesTitle')}</TitleText>
-              <SelectField name='selectLanguage' options={selectLanguageOptions} required desc />
+              <SelectField name='selectLanguage' options={langOptions} required desc />
 
               <CheckboxField name='isSummary' desc />
               {watchSummary && <SelectField name='summaryDay' options={daysOptions} required />}

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ILearnType } from '../types/learn';
+import { LanguagesMap } from '../types/languages';
 
 interface option {
   value: string | number;
@@ -10,9 +11,7 @@ interface option {
 const useGenerateOptionsFields = () => {
   const { t } = useTranslation();
 
-  //TODO from DB
-  const [addLangOptions, setAddLangOptions] = useState<option[]>([]);
-  const [selectLanguageOptions, setSelectLanguageOptions] = useState<option[]>([]);
+  const [langOptions, setLangOptions] = useState<option[]>([]);
 
   const daysOptions = [
     { value: 1, label: t('days.1') },
@@ -37,23 +36,17 @@ const useGenerateOptionsFields = () => {
     { value: 2, label: t('statusDict.done') },
   ];
 
-  useEffect(() => {
-    setAddLangOptions([
-      { value: 'en', label: 'English' },
-      { value: 'jp', label: 'Japan' },
-      { value: 'pl', label: 'Polish' },
-    ]);
+  const mappedLanguages = Array.from(LanguagesMap.entries()).map((lang) => ({
+    value: lang[0],
+    label: lang[1],
+  }));
 
-    setSelectLanguageOptions([
-      { value: 'en', label: 'English' },
-      { value: 'jp', label: 'Japan' },
-      { value: 'pl', label: 'Polish' },
-    ]);
+  useEffect(() => {
+    setLangOptions(mappedLanguages);
   }, []);
 
   return {
-    addLangOptions,
-    selectLanguageOptions,
+    langOptions,
     daysOptions,
     learnTypesOptions,
     statusDictOptions,

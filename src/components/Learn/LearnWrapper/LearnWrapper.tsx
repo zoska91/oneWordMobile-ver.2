@@ -18,6 +18,7 @@ import { ITodayWord } from '../../../types/forms';
 
 import * as S from '../Learn.css';
 import { useLearnWrapper } from './useLearnWrapper';
+import SpeechButton from '../../atoms/Speech';
 
 const LearnWrapper: FC = () => {
   const { t } = useTranslation();

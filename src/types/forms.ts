@@ -37,7 +37,7 @@ export interface IInputsAddWord {
 
 export interface ITodayWord {
   _id?: string;
-  addLang: string;
+  addLang: number;
   basicWord: string;
   createdDate: string;
   status: number;

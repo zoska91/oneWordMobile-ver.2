@@ -8,6 +8,7 @@ import Tip from '../../atoms/Tip';
 import { ITodayWord } from '../../../types/forms';
 
 import * as S from '../Learn.css';
+import SpeechButton from '../../atoms/Speech';
 
 interface QuizTabProps {
   isLearnButtonVisible: boolean;
@@ -59,6 +60,8 @@ const QuizTab: FC<QuizTabProps> = ({
           {t('buttons.check')}
         </Button>
       )}
+
+      {!isLearnButtonVisible && <SpeechButton />}
 
       {isAnswerCorrect !== null && (
         <Tip

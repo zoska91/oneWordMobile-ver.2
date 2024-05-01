@@ -15,7 +15,7 @@ const useAddWordForm = () => {
 
   const { setIsLoading, todayWord, getTodayWord } = useGlobalProvider();
 
-  const { addLangOptions } = useGenerateOptionsFields();
+  const { langOptions } = useGenerateOptionsFields();
 
   const methods = useForm<IInputsAddWord>({
     defaultValues: { addLang: 'en' },
@@ -45,7 +45,7 @@ const useAddWordForm = () => {
     }
   };
 
-  return { navigation, addLangOptions, methods, onSubmit, handleSubmit, t };
+  return { navigation, langOptions, methods, onSubmit, handleSubmit, t };
 };
 
 export default useAddWordForm;

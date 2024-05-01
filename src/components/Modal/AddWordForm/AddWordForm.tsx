@@ -12,7 +12,7 @@ import * as S from './AddWordForm.style';
 interface AddWordFormProps {}
 
 const AddWordForm: FC<AddWordFormProps> = () => {
-  const { navigation, addLangOptions, methods, onSubmit, handleSubmit, t } = useAddWordForm();
+  const { navigation, langOptions, methods, onSubmit, handleSubmit, t } = useAddWordForm();
 
   return (
     <S.Wrapper>
@@ -22,7 +22,7 @@ const AddWordForm: FC<AddWordFormProps> = () => {
         <S.InputsContainer>
           <InputField name='basicWord' small required />
           <InputField name='transWord' small required />
-          <SelectField name='addLang' options={addLangOptions} small />
+          <SelectField name='addLang' options={langOptions} small />
         </S.InputsContainer>
 
         <S.ButtonContainer>

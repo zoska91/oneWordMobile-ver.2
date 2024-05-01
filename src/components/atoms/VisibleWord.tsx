@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import styled from 'styled-components/native';
+import SpeechButton from './Speech';
 
 interface VisibleWordProps {
   children: React.ReactNode;
@@ -14,6 +15,14 @@ const Wrapper = styled.View`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  position: relative;
+`;
+
+const SpeechButtonWrapper = styled.View`
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
 `;
 
 const StyledText = styled.Text`
@@ -26,6 +35,9 @@ const VisibleWord: FC<VisibleWordProps> = ({ children }) => {
   return (
     <Wrapper>
       <StyledText style={{ fontFamily: 'JosefinSans_400Regular' }}>{children}</StyledText>
+      <SpeechButtonWrapper>
+        <SpeechButton />
+      </SpeechButtonWrapper>
     </Wrapper>
   );
 };

@@ -18,6 +18,7 @@ import { checkIsBreakDay, getCurrentLearnType } from '../helpers/useGetCurretnLe
 import Toast from 'react-native-toast-message';
 import { useTranslation } from 'react-i18next';
 import { AppState } from 'react-native';
+import { AvailableLanguages } from '../types/languages';
 
 interface GLobalProviderContextValue {
   isLoading: boolean;
@@ -29,6 +30,7 @@ interface GLobalProviderContextValue {
   setIsBreakDay: Dispatch<SetStateAction<boolean>>;
   isBreakDay: boolean;
   getTodayWord: () => Promise<void>;
+  currentLanguage: AvailableLanguages;
 }
 
 interface IProps {
@@ -51,6 +53,7 @@ export const GlobalProvider: FC<IProps> = ({ children }) => {
   const [todayWord, setTodayWord] = useState<ITodayWord | null>(null);
   const [currentLearnType, setCurrentLearnType] = useState(ILearnType.SHOW_WORD);
   const [isBreakDay, setIsBreakDay] = useState(false);
+  const [currentLanguage, setCurrentLanguage] = useState(AvailableLanguages.en);
 
   const getUser = async () => {
     try {
@@ -74,6 +77,8 @@ export const GlobalProvider: FC<IProps> = ({ children }) => {
   const getTodayWord = async () => {
     try {
       const respSettings = await api.get(apiUrls.getUserSettings);
+
+      setCurrentLanguage(respSettings?.selectLanguage || AvailableLanguages.en);
 
       const isBreakDay = checkIsBreakDay(respSettings?.breakDay);
       if (isBreakDay) return setIsBreakDay(true);
@@ -126,6 +131,7 @@ export const GlobalProvider: FC<IProps> = ({ children }) => {
     isBreakDay,
     setIsBreakDay,
     getTodayWord,
+    currentLanguage,
   };
 
   return <EventViewContext.Provider value={value}>{children}</EventViewContext.Provider>;
