@@ -9,6 +9,7 @@ import * as S from './AddWordsFromCsv.css';
 import { TitleText } from '../../atoms/Title';
 import TextWrapper from '../../atoms/TextWrapper';
 import { useGlobalProvider } from '../../../layout/GlobalProvider';
+import Tip from '../../atoms/Tip';
 
 interface AddWordsFromCsvProps {}
 
@@ -79,6 +80,10 @@ const AddWordsFromCsv: FC<AddWordsFromCsvProps> = () => {
       <Button secondaryColor={!Boolean(file)} onPress={pickFile}>
         {file ? t('form.csvChangeFile') : t('form.csvAddFile')}
       </Button>
+      <S.TipsWrapper>
+        <Tip type='info' text={t('form.csvInfo')} />
+        <Tip type='info' text={t('form.csvMax')} />
+      </S.TipsWrapper>
 
       {file && (
         <S.FileWrapper>

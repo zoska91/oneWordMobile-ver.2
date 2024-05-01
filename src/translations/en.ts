@@ -98,6 +98,8 @@ export const en = {
     csvChangeFile: 'Change file',
     csvSaveFile: 'Save file',
     csvSuccess: 'Words have been added',
+    csvInfo: 'first column: basicWord, \nsecond column: transWord',
+    csvMax: 'you can send max 50 words at once',
   },
   days: {
     1: 'Monday',

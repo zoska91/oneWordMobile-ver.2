@@ -21,3 +21,9 @@ export const CsvFileContainer = styled.View`
 export const FileWrapper = styled.View`
   margin-top: 50px;
 `;
+
+export const TipsWrapper = styled.View`
+  margin-top: 20px;
+  width: 90%;
+  gap: 10px;
+`;
