@@ -8,6 +8,8 @@ import Button from '../../atoms/Button';
 import Tip from '../../atoms/Tip';
 import { TitleText } from '../../atoms/Title';
 import { ITodayWord } from '../../../types/forms';
+import SpeechButton from '../../atoms/Speech';
+import * as S from '../Learn.css';
 
 interface GuessWordTabProps {
   isLearnButtonVisible: boolean;
@@ -36,15 +38,22 @@ const GuessWordTab: FC<GuessWordTabProps> = ({
   return (
     <>
       <TitleText small>{todayWord.basicWord}</TitleText>
-      <GuessingInput
-        status={isAnswerCorrect}
-        placeholder='Answer...'
-        value={guessingWord}
-        onChangeText={(value: string) => setGuessingTransWord(value)}
-        style={{ ...generateBoxShadowStyle(-5, -5, '#000', 0.5, 3, 4, '#000', Platform.OS) }}
-        multiline
-        blurOnSubmit={true}
-      />
+      <S.GuessingWrapper>
+        <GuessingInput
+          status={isAnswerCorrect}
+          placeholder='Answer...'
+          value={guessingWord}
+          onChangeText={(value: string) => setGuessingTransWord(value)}
+          style={{ ...generateBoxShadowStyle(-5, -5, '#000', 0.5, 3, 4, '#000', Platform.OS) }}
+          multiline
+          blurOnSubmit={true}
+        />
+        {isLearnButtonVisible && (
+          <S.SpeechButtonWrapper>
+            <SpeechButton />
+          </S.SpeechButtonWrapper>
+        )}
+      </S.GuessingWrapper>
 
       {isAnswerCorrect !== null && (
         <Tip
@@ -57,7 +66,6 @@ const GuessWordTab: FC<GuessWordTabProps> = ({
           }
         />
       )}
-
       {!isLearnButtonVisible && (
         <Button dark onPress={onCheck}>
           {t('buttons.check')}

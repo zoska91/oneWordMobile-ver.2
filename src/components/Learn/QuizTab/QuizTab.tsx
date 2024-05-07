@@ -34,6 +34,11 @@ const QuizTab: FC<QuizTabProps> = ({
       >
         {item.text}
       </S.StyledButton>
+      {isLearnButtonVisible && selectedAnswer === item.id && (
+        <S.SpeechButtonWrapper inButton>
+          <SpeechButton />
+        </S.SpeechButtonWrapper>
+      )}
     </S.Answer>
   );
 
@@ -60,8 +65,6 @@ const QuizTab: FC<QuizTabProps> = ({
           {t('buttons.check')}
         </Button>
       )}
-
-      {!isLearnButtonVisible && <SpeechButton />}
 
       {isAnswerCorrect !== null && (
         <Tip

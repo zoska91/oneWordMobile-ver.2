@@ -4,23 +4,18 @@ import { StyledInput } from '../atoms/Inputs.css';
 
 // Wrapper
 export const Wrapper = styled.View`
-  /* display: flex;
-  flex-direction: column;
-  gap: 10px; */
   position: absolute;
   top: 15%;
   left: 0;
   padding-top: 20px;
   width: 100%;
   height: 100%;
-  /* background-color: green; */
 `;
 
 export const Content = styled.View<{ windowHeight: number }>`
   height: ${({ windowHeight }) => `${windowHeight - 300}px`};
   align-items: center;
   justify-content: space-between;
-  /* background-color: blue; */
   padding-bottom: 50px;
 `;
 
@@ -45,7 +40,6 @@ export const WordWrapper = styled.View<{ isLearnButtonVisible: boolean }>`
   gap: 30px;
   height: ${({ isLearnButtonVisible }) => (isLearnButtonVisible ? '90%' : '110%')};
   width: 100%;
-  /* background-color: yellow; */
 `;
 
 export const Answer = styled.View<{ isSelected: boolean }>`
@@ -60,7 +54,18 @@ export const StyledButton = styled(Button)`
   border-style: solid;
 `;
 
-export const GuessingInput = styled(StyledInput)<{status: 'success' | 'error' | null}>`
+export const GuessingWrapper = styled.View`
+  position: relative;
+  width: 100%;
+`;
+
+export const GuessingInput = styled(StyledInput)<{ status: 'success' | 'error' | null }>`
   font-size: 24px;
   height: 200px;
-`
+`;
+
+export const SpeechButtonWrapper = styled.View<{ inButton?: boolean }>`
+  position: absolute;
+  bottom: ${({ inButton }) => (inButton ? '10px' : '25px')};
+  right: 15px;
+`;
