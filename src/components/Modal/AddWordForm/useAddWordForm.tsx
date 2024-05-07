@@ -18,7 +18,7 @@ const useAddWordForm = () => {
   const { langOptions } = useGenerateOptionsFields();
 
   const methods = useForm<IInputsAddWord>({
-    defaultValues: { addLang: 'en' },
+    defaultValues: { addLang: 7 },
   });
 
   const { handleSubmit, reset } = methods;

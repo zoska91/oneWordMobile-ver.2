@@ -1,7 +1,7 @@
 export interface IInputsAddWord {
   basicWord: string;
   transWord: string;
-  addLang: string;
+  addLang: number;
 }
 
 export interface ISingleNotification {
@@ -32,7 +32,7 @@ export interface IInputsPreferences {
 export interface IInputsAddWord {
   basicWord: string;
   transWord: string;
-  addLang: string;
+  addLang: number;
 }
 
 export interface ITodayWord {
