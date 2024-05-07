@@ -8,6 +8,7 @@ import { LearnWrapper } from '../../components/Learn/';
 import { useTranslation } from 'react-i18next';
 import { useGlobalProvider } from '../../layout/GlobalProvider';
 import { useNavigation } from '@react-navigation/native';
+import GlobalLoader from '../../components/atoms/GlobalLoader';
 
 const UserScreen: FC = () => {
   const { t } = useTranslation();
@@ -19,14 +20,14 @@ const UserScreen: FC = () => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
 
   useEffect(() => {
-    console.log(isLogin);
     if (!isLogin) navigation.navigate('Home');
   }, [isLogin]);
+
+  if (isLoading) return <GlobalLoader />;
 
   return (
     <S.Wrapper>
       <Text>{t('userScreen.todayWord')}</Text>
-
       {!isLoading && <LearnWrapper />}
 
       <SpeedDial

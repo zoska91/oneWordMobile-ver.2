@@ -5,6 +5,7 @@ import Layout from '../../layout';
 
 import * as S from './HomeScreen.css';
 import { useGlobalProvider } from '../../layout/GlobalProvider';
+import GlobalLoader from '../../components/atoms/GlobalLoader';
 
 const HomeScreen: FC = () => {
   const { isLoading } = useGlobalProvider();
@@ -17,6 +18,7 @@ const HomeScreen: FC = () => {
           <TitleText>one Word</TitleText>
           <TitleText small>a day</TitleText>
         </TitleWrapper>
+        {isLoading && <GlobalLoader />}
         {!isLoading && <Auth />}
       </Layout>
     </S.Wrapper>

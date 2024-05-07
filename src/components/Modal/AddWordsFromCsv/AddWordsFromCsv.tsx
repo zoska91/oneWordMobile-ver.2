@@ -43,7 +43,6 @@ const AddWordsFromCsv: FC<AddWordsFromCsvProps> = () => {
       } else Toast.show({ type: 'error', text2: response.error.message });
     } catch (e) {
       const error = e as CustomError;
-      console.log(999, e);
       if (error.status === 400) {
         Toast.show({ type: 'error', text2: t('api.wrongCsv') });
 

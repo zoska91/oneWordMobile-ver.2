@@ -87,7 +87,6 @@ export const GlobalProvider: FC<IProps> = ({ children }) => {
       if (learnType) setCurrentLearnType(learnType);
 
       const respWord = await api.get(apiUrls.getTodayWord);
-      console.log(64, { respWord });
 
       setTodayWord(respWord);
     } catch (e) {
@@ -105,7 +104,6 @@ export const GlobalProvider: FC<IProps> = ({ children }) => {
   useEffect(() => {
     getUser();
   }, []);
-  console.log(999999, todayWord);
 
   useEffect(() => {
     const subscription = AppState.addEventListener('change', (nextAppState) => {

@@ -34,14 +34,13 @@ export const useLearnWrapper = () => {
     setIsLoading(true);
     try {
       if (todayWord?._id) {
-        console.log(todayWord, todayWord._id);
         const resp = await api.put(apiUrls.updateWord(todayWord._id), { status: 2 });
         if (resp._id === todayWord?._id) {
           await getTodayWord();
         }
       }
     } catch (e) {
-      console.log();
+      console.log(e);
       Toast.show({ type: 'error', text2: t('api.error') });
     } finally {
       setIsLoading(false);

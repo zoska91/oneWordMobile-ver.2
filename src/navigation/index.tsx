@@ -36,7 +36,11 @@ function RootNavigator() {
   return (
     <Stack.Navigator>
       <Stack.Screen name='Home' component={HomeScreen} options={{ headerShown: false }} />
-      <Stack.Screen name='User' component={UserScreen} options={{ headerShown: false }} />
+      <Stack.Screen
+        name='User'
+        component={UserScreen}
+        options={{ headerShown: false, gestureEnabled: false }}
+      />
       <Stack.Screen name='NotFound' component={NotFoundScreen} options={{ title: 'Oops!' }} />
       <Stack.Group screenOptions={{ presentation: 'modal', headerShown: false }}>
         <Stack.Screen name='Modal' component={ModalScreen} />
