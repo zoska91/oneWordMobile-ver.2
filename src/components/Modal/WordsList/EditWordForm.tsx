@@ -21,7 +21,7 @@ interface EditWordFormProps {
 const EditWordForm: FC<EditWordFormProps> = ({ data, saveEditingWord, isLoading }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const { t } = useTranslation();
-  const { addLangOptions } = useGenerateOptionsFields();
+  const { langOptions } = useGenerateOptionsFields();
 
   const methods = useForm<IInputsAddWord>({
     defaultValues: data || {},
@@ -63,7 +63,7 @@ const EditWordForm: FC<EditWordFormProps> = ({ data, saveEditingWord, isLoading 
           <S.InputsContainer style={{ marginBottom: 0, marginTop: 0 }}>
             <InputField name='basicWord' />
             <InputField name='transWord' />
-            <SelectField name='addLang' options={addLangOptions} />
+            <SelectField name='addLang' options={langOptions} />
           </S.InputsContainer>
 
           <Button dark small onPress={handleSubmit(onSubmit)}>
